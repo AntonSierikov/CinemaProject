@@ -17,8 +17,7 @@ namespace MovieDomain.Entities
 
         public MovieGenre(int movieId, int genreId)
         {
-            Id.MovieId = movieId;
-            Id.GenreId = genreId;
+            Id = new MovieGenreId(movieId, genreId);
         }
 
         //----------------------------------------------------------------//

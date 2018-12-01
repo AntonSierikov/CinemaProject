@@ -11,5 +11,6 @@ namespace MovieDomain.DAL.Abstract
 
         IDbTransaction Transaction { get;  }
 
+        void SaveChanges();
     }
 }

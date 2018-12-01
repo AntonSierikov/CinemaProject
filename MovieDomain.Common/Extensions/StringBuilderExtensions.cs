@@ -48,5 +48,13 @@ namespace MovieDomain.Common.Extensions
 
         //----------------------------------------------------------------//
 
+        public static void AppendExceptionLog(this StringBuilder builder, Exception ex)
+        {
+            builder.AppendLine($"Message: {ex.Message}");
+            builder.AppendLine($"Stack trace: {ex.StackTrace}");
+        }
+
+        //----------------------------------------------------------------//
+
     }
 }

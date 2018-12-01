@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskService.Domain", "TaskService.Domain\TaskService.Domain.csproj", "{D587CFAE-3543-410D-A72B-87167312EE3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskService.Domain", "TaskService.Domain\TaskService.Domain.csproj", "{D587CFAE-3543-410D-A72B-87167312EE3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskService.ConsoleClient", "TaskService.ConsoleClient\TaskService.ConsoleClient.csproj", "{DA7B1F47-553C-49CE-A951-704752BCCB82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskService.ConsoleClient", "TaskService.ConsoleClient\TaskService.ConsoleClient.csproj", "{DA7B1F47-553C-49CE-A951-704752BCCB82}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieDomain", "..\MovieDomain\MovieDomain.csproj", "{768DE154-80C8-4856-B3E8-F5F69F24828A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieDomain.DAL", "..\MovieDomain.DAL\MovieDomain.DAL.csproj", "{1493B6C0-2693-4C26-8AC5-E9DF036F7495}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieDomain.Common", "..\MovieDomain.Common\MovieDomain.Common.csproj", "{DE44E3D4-9488-4F3F-BF55-41CE9E7B0B03}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{1493B6C0-2693-4C26-8AC5-E9DF036F7495}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1493B6C0-2693-4C26-8AC5-E9DF036F7495}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1493B6C0-2693-4C26-8AC5-E9DF036F7495}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE44E3D4-9488-4F3F-BF55-41CE9E7B0B03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE44E3D4-9488-4F3F-BF55-41CE9E7B0B03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE44E3D4-9488-4F3F-BF55-41CE9E7B0B03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE44E3D4-9488-4F3F-BF55-41CE9E7B0B03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -22,10 +22,16 @@ namespace MovieDomain.DAL.Factories
             AddSessionOperation<IMovieCommand>(s => new MovieCommand(s));
             AddSessionOperation<IGenreCommand>(s => new GenreCommand(s));
             AddSessionOperation<ICompanyCommand>(s => new ProductionCompanyCommand(s));
-            commands.Add(typeof(ICommand<ProductionCountry, int>), s => new ProductionCountryCommand(s));
-            commands.Add(typeof(ICommand<People, int>), s => new PeopleCommand(s));
-            commands.Add(typeof(ICommand<Cast, int>), s => new CastCommand(s));
-            commands.Add(typeof(ICommand<Crew, int>), s => new CrewCommand(s));
+            AddSessionOperation<ICountryCommand>(s => new ProductionCountryCommand(s));
+            AddSessionOperation<IPeopleCommand>(s => new PeopleCommand(s));
+            AddSessionOperation<ICastCommand>(s => new CastCommand(s));
+            AddSessionOperation<ICrewCommand>(s => new CrewCommand(s));
+            AddSessionOperation<IMovieGenreCommand>(s => new MovieGenreCommand(s));
+            AddSessionOperation<IMovieCompanyCommand>(s => new MovieCompanyCommand(s));
+            AddSessionOperation<IMovieCountryCommand>(s => new MovieCountryCommand(s));
+            AddSessionOperation<IJobCommand>(s => new JobCommand(s));
+            AddSessionOperation<IDepartmentCommand>(s => new DepartmentCommand(s));
+            AddSessionOperation<ITaskInfoCommand>(s => new TaskInfoCommand(s));
         }
 
         //----------------------------------------------------------------//

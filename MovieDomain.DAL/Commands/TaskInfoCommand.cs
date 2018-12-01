@@ -18,8 +18,7 @@ namespace MovieDomain.DAL.Commands
 
         protected override string GenerateInsertQuery(TaskInfo entity)
         {
-            return $@"INSERT INTO {TableName} VALUES 
-                       OUTPUT INSERTED.Id
+            return $@"INSERT INTO {TableName}  OUTPUT INSERTED.Id VALUES 
                       (DEFAULT, @{nameof(entity.RunNow)}, @{nameof(entity.Description)},
                        @{nameof(entity.Interval)}, @{nameof(entity.LastStartDateTime)},
                        @{nameof(entity.LastEndingDateTime)}, @{nameof(entity.LastSuccessStartDateTime)},
@@ -36,8 +35,8 @@ namespace MovieDomain.DAL.Commands
                                   LastEndingDateTime = @{nameof(item.LastEndingDateTime)}, LastSuccessStartDateTime = @{nameof(item.LastSuccessStartDateTime)},
                                   LastSuccessEndDateTime = @{nameof(item.LastSuccessEndDateTime)}, 
                                   IsActive = @{nameof(item.IsActive)},
-                                  IsRunning = @{nameof(item.IsRunning)},
-                                  WHERE TaskId = @{nameof(item.Id)}";
+                                  IsRunning = @{nameof(item.IsRunning)}
+                                  WHERE Id = @{nameof(item.Id)}";
             return updateInfo;
         }
 

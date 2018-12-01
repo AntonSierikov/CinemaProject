@@ -3,7 +3,7 @@
 namespace MovieDomain.Abstract
 {
     [Serializable]
-    public class DbObject<T> 
+    public class DbObject<T>
     {
         public T Id { get; set; }
 

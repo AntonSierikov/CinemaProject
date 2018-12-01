@@ -12,37 +12,11 @@ namespace MovieDomain.DAL.Commands
         {}
 
         //----------------------------------------------------------------//
-
-        public bool Delete(ProductionCountry entity)
-        {
-            string delete = $"DELETE {TableName} WHERE ProductionCountryId = @{nameof(entity.Id)}";
-            return _session.Connection.Execute(delete, entity, _session.Transaction) > default(int);
-        }
-
-        //----------------------------------------------------------------//
-
-        public int Insert(ProductionCountry entity)
-        {
-            string insert = $@"INSERT INTO {TableName} VALUES  OUTPUT Inserted.CountryId
-                               (DEFAULT, @{nameof(entity.iso_3166_1)}, @{nameof(entity.Name)})";
-            return _session.Connection.ExecuteScalar<int>(insert, entity, _session.Transaction);
-        }
-
-        //----------------------------------------------------------------//
-
-        public bool Update(ProductionCountry entity)
-        {
-            string update = $@"UPDATE {TableName} SET 
-                              iso_3155_1 = @{nameof(entity.iso_3166_1)},
-                              Name = @{nameof(entity.Name)}
-                              WHERE CountryId = @{nameof(entity.Id)}";
-            return _session.Connection.Execute(update, entity, _session.Transaction) > default(int);
-        }
-
+        
         protected override string GenerateInsertQuery(ProductionCountry entity)
         {
-            string insert = $@"INSERT INTO {TableName} VALUES  OUTPUT Inserted.CountryId
-                               (DEFAULT, @{nameof(entity.iso_3166_1)}, @{nameof(entity.Name)})";
+            string insert = $@"INSERT INTO {TableName} OUTPUT Inserted.Id VALUES  
+                               (@{nameof(entity.iso_3166_1)}, @{nameof(entity.Name)})";
             return insert;
         }
 
@@ -51,7 +25,7 @@ namespace MovieDomain.DAL.Commands
             string update = $@"UPDATE {TableName} SET 
                               iso_3155_1 = @{nameof(entity.iso_3166_1)},
                               Name = @{nameof(entity.Name)}
-                              WHERE CountryId = @{nameof(entity.Id)}";
+                              WHERE Id = @{nameof(entity.Id)}";
             return update;
         }
 

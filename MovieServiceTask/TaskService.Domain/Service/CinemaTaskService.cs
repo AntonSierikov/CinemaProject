@@ -19,6 +19,7 @@ namespace TaskService.Domain.Service
         private readonly IQueryFactory _queryFactory;
         private readonly ICommandFactory _commandFactory;
         private readonly ISessionFactory _sessionFunc;
+        private readonly IServiceProvider _serviceProvider;
 
         //----------------------------------------------------------------//
 
@@ -27,12 +28,14 @@ namespace TaskService.Domain.Service
             _queryFactory = provider.GetRequiredService<IQueryFactory>();
             _commandFactory = provider.GetRequiredService<ICommandFactory>();
             _sessionFunc = provider.GetRequiredService<ISessionFactory>();
+            _serviceProvider = provider;
         }
 
         //----------------------------------------------------------------//
 
-        public void RunTasks()
+        public async Task RunTasks()
         {
+           
             using (ISession session = _sessionFunc.CreateSession())
             {
                 ITaskQuery taskQuery = _queryFactory.CreateQuery<ITaskQuery>(session);
@@ -40,10 +43,12 @@ namespace TaskService.Domain.Service
                 List<Task> tasks = new List<Task>();
                 foreach (TaskInfo info in enumeration)
                 {
-                    TaskBase taskBase = MovieTaskFactory.CreateTask(info);
+                    TaskBase taskBase = MovieTaskFactory.CreateTask(info, _serviceProvider, session);
                     tasks.Add(RunTask(taskBase, session));
                 }
-                Task.WaitAll(tasks.ToArray());
+
+                await Task.WhenAll(tasks);
+                session.SaveChanges();
             }
         }
 
@@ -51,7 +56,7 @@ namespace TaskService.Domain.Service
 
         public async Task RunTask(TaskBase taskBase, ISession session)
         {
-            bool isSuccess = await Task.Run(() => taskBase.SafeExecute());
+            bool isSuccess = await Task.Run(() => taskBase.SafeExecute(session));
             if (isSuccess)
             {
                 _commandFactory.CreateCommand<ITaskInfoCommand>(session)

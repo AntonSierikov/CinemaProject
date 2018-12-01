@@ -7,7 +7,7 @@ using Dapper;
 
 namespace MovieDomain.DAL.Commands
 {
-    internal class PeopleCommand : BaseCommand<People, int>, 
+    internal class PeopleCommand : BaseCommand<People, int>, IPeopleCommand
     {
 
         //----------------------------------------------------------------//
@@ -20,7 +20,7 @@ namespace MovieDomain.DAL.Commands
 
         protected override string GenerateInsertQuery(People entity)
         {
-            string insert = $@"INSERT INTO {TableConstans.PEOPLE} VALUES OUTPUT Inserted.Id
+            string insert = $@"INSERT INTO {TableName} VALUES OUTPUT Inserted.Id VALUES
                                (DEFAULT, {nameof(entity.Imdb_id)}, {nameof(entity.Name)}, {nameof(entity.Biography)},
                                 {nameof(entity.Gender)}, {nameof(entity.Homepage)}, {nameof(entity.Birthday)}, {nameof(entity.Deathday)},
                                 {nameof(entity.PlaceOfBirth)}, {nameof(entity.Popularity)}, {nameof(entity.ProfilePath)})";
@@ -29,9 +29,9 @@ namespace MovieDomain.DAL.Commands
 
         //----------------------------------------------------------------//
 
-        public override string GenerateUpdateQuery(People entity)
+        protected override string GenerateUpdateQuery(People entity)
         {
-            string update = $@"UPDATE {TableConstans.PEOPLE} SET
+            string update = $@"UPDATE {TableName} SET
                                Imdb_id = {nameof(entity.Imdb_id)} 
                                Name = {nameof(entity.Name)},
                                Biography = {nameof(entity.Biography)},

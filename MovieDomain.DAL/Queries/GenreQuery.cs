@@ -1,4 +1,5 @@
-﻿using MovieDomain.Entities;
+﻿using System.Threading.Tasks;
+using MovieDomain.Entities;
 using MovieDomain.DAL.Abstract;
 using MovieDomain.DAL.IQueries;
 using Dapper;
@@ -24,10 +25,14 @@ namespace MovieDomain.DAL.Queries
 
         //----------------------------------------------------------------//
 
-        public bool IsExist(Genre genre)
+        public override string GetUniqueConditionByItem(Genre item) => $" WHERE genre = @{nameof(item.genre)}";
+
+        //----------------------------------------------------------------//
+
+        public Task<int> GetIdByItem(Genre genre)
         {
-            string getGenre = $"SELECT COUNT(*) FROM {TableName} WHERE genre = @{nameof(genre.genre)}";
-            return _session.Connection.ExecuteScalar<int>(getGenre, genre, _session.Transaction) > default(int);
+            string getGenre = $"SELECT Id FROM {TableName} {GetUniqueConditionByItem(genre)}";
+            return _session.Connection.QueryFirstOrDefaultAsync<int>(getGenre, genre, _session.Transaction);
         }
 
         //----------------------------------------------------------------//

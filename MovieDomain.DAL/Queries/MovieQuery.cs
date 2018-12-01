@@ -1,4 +1,4 @@
-﻿using System.Data;
+﻿using System.Threading.Tasks;
 using System.Collections.Generic;
 using MovieDomain.Entities;
 using MovieDomain.DAL.IQueries;
@@ -36,12 +36,17 @@ namespace MovieDomain.DAL.Queries
 
         //----------------------------------------------------------------//
 
-        public bool IsExist(Movie movie)
+        public override string GetUniqueConditionByItem(Movie item)
         {
-            string getMovie = $@"SELECT COUNT(*) FROM {TableName} WHERE Title = @{nameof(movie.Title)} AND 
-                                                                        Status = @{nameof(movie.Status)} AND 
-                                                                        ReleaseDate = @{nameof(movie.ReleaseDate)}";
-            return _session.Connection.QueryFirstOrDefault<int>(getMovie, movie, _session.Transaction) > default(int);
+            return $"WHERE Title = @{nameof(item.Title)} AND Status = @{nameof(item.Status)} AND ReleaseDate = @{nameof(item.ReleaseDate)}";
+        }
+
+        //----------------------------------------------------------------//
+
+        public Task<int> GetIdByItem(Movie movie)
+        {
+            string getMovie = $@"SELECT Id FROM {TableName} {GetUniqueConditionByItem(movie)}";
+            return _session.Connection.QueryFirstOrDefaultAsync<int>(getMovie, movie, _session.Transaction);
         }
 
         //----------------------------------------------------------------//

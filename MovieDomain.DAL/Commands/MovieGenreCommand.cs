@@ -15,7 +15,7 @@ namespace MovieDomain.DAL.Commands
         {
             string insert = $@"INSERT INTO {TableName}(MovieId, GenreId)
                                OUTPUT INSERTED.MovieId, INSERTED.GenreId
-                               VALUES(@{nameof(item.Id.MovieId)}, @{nameof(item.Id.GenreId)}";
+                               VALUES(@{nameof(item.Id.MovieId)}, @{nameof(item.Id.GenreId)})";
             return insert;
         }
 

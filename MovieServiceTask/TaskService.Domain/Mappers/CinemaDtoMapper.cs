@@ -35,9 +35,9 @@ namespace TaskService.Domain.Mappers
                 VoteAverage = movieDto.VoteAverage,
                 VoteCount = movieDto.VoteCount
             };
-            movieDto.Genres.ForEach(g => movie.Genres.Add(new MovieGenre(movie, MapGenre(g))));
-            movieDto.Production_Companies.ForEach(c => movie.ProductionCompanies.Add(new MovieCompany(movie, MapCompany(c))));
-            movieDto.Production_Countries.ForEach(c => movie.ProductionCountries.Add(new MovieCountry(movie, MapCoutry(c))));
+            movieDto.Genres.ForEach(g => movie.Genres.Add(MapGenre(g)));
+            movieDto.Production_Companies.ForEach(c => movie.ProductionCompanies.Add(MapCompany(c)));
+            movieDto.Production_Countries.ForEach(c => movie.ProductionCountries.Add(MapCoutry(c)));
             return movie;
         }
 

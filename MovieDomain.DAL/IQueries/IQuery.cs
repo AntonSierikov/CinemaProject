@@ -1,13 +1,16 @@
-﻿using MovieDomain.Abstract;
+﻿using System.Threading.Tasks;
+using MovieDomain.Abstract;
 
 namespace MovieDomain.DAL.IQueries
 {
     public interface IQuery<T, TId> where T: DbObject<TId>
     {
-        T GetItem(TId id);
+        Task<T> GetItem(TId id);
 
-        int Count();
+        Task<int> Count();
 
-        bool IsExist(T item);
+        Task<bool> IsExist(T item);
+
+        Task<TId> GetIdByItem(T item);
     }
 }

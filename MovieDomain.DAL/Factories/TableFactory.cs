@@ -32,6 +32,13 @@ namespace MovieDomain.DAL.Factories
             tableDictionary.Add(typeof(ProductionCompany), TableConstans.PRODUCTION_COMPANY);
             tableDictionary.Add(typeof(ProductionCountry), TableConstans.PRODUCTION_COUNTRY);
             tableDictionary.Add(typeof(Genre), TableConstans.GENRE);
+            tableDictionary.Add(typeof(TaskInfo), TableConstans.TASK_INFO);
+            tableDictionary.Add(typeof(Job), TableConstans.JOB);
+            tableDictionary.Add(typeof(Department), TableConstans.DEPARTMENT);
+            tableDictionary.Add(typeof(JobPeople), TableConstans.JOB_PEOPLE);
+            tableDictionary.Add(typeof(MovieCompany), TableConstans.MOVIE_COMPANY);
+            tableDictionary.Add(typeof(MovieCountry), TableConstans.MOVIE_COUNTRY);
+            tableDictionary.Add(typeof(MovieGenre), TableConstans.MOVIE_GENRE);
         }
 
         //----------------------------------------------------------------//

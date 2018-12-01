@@ -24,6 +24,7 @@ namespace TaskService.Domain
         public TaskServiceConfigure(IServiceCollection serviceCollection)
         {
             _serviceCollection = serviceCollection;
+            ConfigureDependencies();
         }
 
         //----------------------------------------------------------------//
@@ -34,11 +35,10 @@ namespace TaskService.Domain
             _serviceCollection.AddSingleton<ISessionFactory, SessionFactory>();
             _serviceCollection.AddSingleton<IQueryFactory, QueryFactory>();
             _serviceCollection.AddSingleton<ICommandFactory, CommandFactory>();
-
             _serviceCollection.AddSingleton<ILoadDataService, LoadDataServiceTmdb>();
             _serviceCollection.AddSingleton<ICinemaTaskService, CinemaTaskService>();
-            _serviceCollection.AddSingleton<IFeedEntityService, FeedEntityService>();
         }
+
 
         //----------------------------------------------------------------//
 

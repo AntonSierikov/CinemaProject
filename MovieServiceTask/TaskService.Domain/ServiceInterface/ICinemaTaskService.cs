@@ -9,7 +9,7 @@ namespace TaskService.Domain.ServiceInterface
 
         //----------------------------------------------------------------//
 
-        void RunTasks();
+        Task RunTasks();
 
         Task RunTask(TaskBase taskBase, ISession session);
 

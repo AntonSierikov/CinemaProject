@@ -19,6 +19,14 @@ namespace MovieDomain.Entities
 
         //----------------------------------------------------------------//
 
+        public Department(string departmentName)
+            : this()
+        {
+            DepartmentName = departmentName;
+        }
+
+        //----------------------------------------------------------------//
+
         public string DepartmentName { get; set; }
 
         public ICollection<Job> Jobs { get; set; }

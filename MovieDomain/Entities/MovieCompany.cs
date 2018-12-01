@@ -16,12 +16,18 @@ namespace MovieDomain.Entities
 
         //----------------------------------------------------------------//
 
+        public MovieCompany(int movieId, int companyId)
+        {
+            Id = new MovieCompanyId(movieId, companyId);
+        }
+
+        //----------------------------------------------------------------//
+
         public MovieCompany(Movie movie, ProductionCompany company)
+            : this(movie.Id, company.Id)
         {
             Movie = movie;
             Company = company;
-            Id.MovieId = movie.Id;
-            Id.CompanyId = company.Id;
         }
 
         //----------------------------------------------------------------//

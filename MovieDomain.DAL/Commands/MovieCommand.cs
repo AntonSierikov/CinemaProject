@@ -19,13 +19,13 @@ namespace MovieDomain.DAL.Commands
 
         protected override string GenerateInsertQuery(Movie entity)
         {
-            string addMovie = $@"INSERT INTO {TableConstans.MOVIE} VALUES OUTPUT Inserted.Id
+            string addMovie = $@"INSERT INTO {TableConstans.MOVIE} OUTPUT Inserted.Id VALUES 
                               (@{nameof(entity.Adult)}, @{nameof(entity.Backdrop_path)}, @{nameof(entity.Budget)},
                                @{nameof(entity.BelongsToCollection)}, @{nameof(entity.Imdb_id)}, @{nameof(entity.Original_language)}, 
                                @{nameof(entity.Original_title)}, @{nameof(entity.Overview)}, @{nameof(entity.Popularity)},
                                @{nameof(entity.Poster_path)}, @{nameof(entity.ReleaseDate)}, @{nameof(entity.Revenue)}, 
                                @{nameof(entity.Runtime)}, @{nameof(entity.Status)}, @{nameof(entity.Tagline)}, 
-                               @{nameof(entity.Title)}, @{nameof(entity.Video)}, @{nameof(entity.VoteAverage)}, @nameof{(entity.VoteCount)})";
+                               @{nameof(entity.Title)}, @{nameof(entity.Video)}, @{nameof(entity.VoteAverage)}, @{nameof(entity.VoteCount)}, @{nameof(entity.Tmdb_ID)})";
             return addMovie;
         }
 
@@ -40,8 +40,8 @@ namespace MovieDomain.DAL.Commands
                                Original_title = @{nameof(entity.Original_title)}, Overview = @{nameof(entity.Overview)}, 
                                Popularity = @{nameof(entity.Popularity)}, Poster_path = @{nameof(entity.Poster_path)},
                                ReleaseDate = @{nameof(entity.ReleaseDate)}, Revenue = @{nameof(entity.Revenue)}, 
-                               Runtime = @{nameof(entity.Runtime)}, Status = @{nameof(entity.Status)}, Tagline = @{nameof(entity.Tagline)},
-                               Status = @{nameof(entity.Status)}, Tagline = @{nameof(entity.Tagline)}, Title = @{nameof(entity.Title)},
+                               Runtime = @{nameof(entity.Runtime)}, Tagline = @{nameof(entity.Tagline)},
+                               Status = @{nameof(entity.Status)}, Title = @{nameof(entity.Title)},
                                Video = @{nameof(entity.Video)}, VoteAverage = @{nameof(entity.VoteAverage)}, VoteCount = @{nameof(entity.VoteCount)}
                                WHERE Id = @{nameof(entity.Id)}";
             return update;

@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Dapper;
 using MovieDomain.Entities;
 using MovieDomain.DAL.IQueries;
@@ -8,7 +7,7 @@ using MovieDomain.DAL.Abstract;
 
 namespace MovieDomain.DAL.Queries
 {
-    internal class CountryQuery : BaseQuery<ProductionCountry, int>, IQuery<ProductionCountry, int>
+    internal class CountryQuery : BaseQuery<ProductionCountry, int>, ICountryQuery
     {
 
         //----------------------------------------------------------------//
@@ -19,10 +18,17 @@ namespace MovieDomain.DAL.Queries
 
         //----------------------------------------------------------------//
 
-        public bool IsExist(ProductionCountry item)
+        public override string GetUniqueConditionByItem(ProductionCountry item)
         {
-            string isExist = $"SELECT Count(*) FROM ProductionCountry WHERE Name = @{nameof(item.Name)} AND iso_3166_1 = @{nameof(item.iso_3166_1)}";
-            return _session.Connection.ExecuteScalar<int>(isExist, item, _session.Transaction) > default(int);
+            return $"WHERE Name = @{nameof(item.Name)} AND iso_3166_1 = @{nameof(item.iso_3166_1)}";
+        }
+
+        //----------------------------------------------------------------//
+
+        public Task<int> GetIdByItem(ProductionCountry item)
+        {
+            string getId = $"SELECT TOP 1 Id FROM {TableName} {GetUniqueConditionByItem(item)}";
+            return _session.Connection.QueryFirstOrDefaultAsync<int>(getId, item, _session.Transaction);
         }
 
         //----------------------------------------------------------------//

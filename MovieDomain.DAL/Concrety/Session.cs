@@ -11,6 +11,8 @@ namespace MovieDomain.DAL.Concrety
 {
     public class Session : ISession
     {
+        private Boolean _isCommited;
+
         private IDbConnection _connection;
 
         private IDbTransaction _dbTransaction;
@@ -41,8 +43,24 @@ namespace MovieDomain.DAL.Concrety
         {
             _connection = new SqlConnection(ConfigurationFactory.MainDb);
             _connection.Open();
-            _dbTransaction = _connection.BeginTransaction();
+            _dbTransaction = _connection.BeginTransaction(isolationLevel);
         }
+
+        //----------------------------------------------------------------//
+            
+        public Session(IDbConnection connection, IsolationLevel isolationLevel = IsolationLevel.ReadCommitted)
+        {
+            _connection = connection;
+            _dbTransaction = _connection.BeginTransaction(isolationLevel);
+        }
+
+        //----------------------------------------------------------------//
+
+        public void SaveChanges()
+        {
+            Transaction.Commit();
+            _isCommited = true;
+        } 
 
         //----------------------------------------------------------------//
 
@@ -50,11 +68,10 @@ namespace MovieDomain.DAL.Concrety
         {
             try
             {
-                _dbTransaction?.Commit();
-            }
-            catch
-            {
-                _dbTransaction.Rollback();
+                if (!_isCommited)
+                {
+                    _dbTransaction.Rollback();
+                }
             }
             finally
             {

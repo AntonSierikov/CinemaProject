@@ -3,7 +3,6 @@ using System.IO;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Configuration;
 using MovieDomain.Constans;
-using Microsoft.EntityFrameworkCore;
 
 namespace MovieDomain.DAL.Infrastructure
 {

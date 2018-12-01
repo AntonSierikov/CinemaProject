@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Threading.Tasks;
+using System.Data;
 using Dapper;
 using MovieDomain.Entities;
 using MovieDomain.DAL.IQueries;
@@ -11,7 +10,6 @@ namespace MovieDomain.DAL.Queries
     internal class CastQuery : BaseQuery<Cast, int>, ICastQuery
     {
 
-
         //----------------------------------------------------------------//
 
         public CastQuery(ISession session) : base(session)
@@ -19,10 +17,14 @@ namespace MovieDomain.DAL.Queries
 
         //----------------------------------------------------------------//
 
-        public bool IsExist(Cast item)
+        public override string GetUniqueConditionByItem(Cast item) => $"WHERE CharacterCast = @{nameof(item.CharacterCast)} AND PeopleId = @{nameof(item.PeopleId)}";
+
+        //----------------------------------------------------------------//
+
+        public Task<int> GetIdByItem(Cast item)
         {
-            string isExist = $"SELECT Count(*) FROM Cast WHERE CharacterCast = @{nameof(item.CharacterCast)} AND PeopleId = @{nameof(item.PeopleId)}";
-            return _session.Connection.ExecuteScalar<int>(isExist, item, _session.Transaction) > default(int);
+            string getId = $"SELECT Id FROM {TableName} {GetUniqueConditionByItem(item)}";
+            return _session.Connection.QueryFirstOrDefaultAsync<int>(getId, item, _session.Transaction);
         }
 
         //----------------------------------------------------------------//

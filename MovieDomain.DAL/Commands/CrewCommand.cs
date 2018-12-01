@@ -17,7 +17,7 @@ namespace MovieDomain.DAL.Commands
 
         protected override string GenerateInsertQuery(Crew entity)
         {
-            return $@"INSERT INTO {TableName} VALUES OUTPUT Inserted.Id
+            return $@"INSERT INTO {TableName} OUTPUT Inserted.Id VALUES 
                       (DEFAULT, @{nameof(entity.PeopleId)}, @{nameof(entity.MovieId)}, @{nameof(entity.JobId)}";
         }
 

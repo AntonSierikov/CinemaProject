@@ -26,7 +26,7 @@ namespace MovieDomain.DAL.Commands
         {
             return $@"UPDATE {TableName} SET
                        genre = @{nameof(entity.genre)}
-                       WHERE GenreId = @{nameof(entity.Id)}";
+                       WHERE Id = @{nameof(entity.Id)}";
         }
 
         //----------------------------------------------------------------//

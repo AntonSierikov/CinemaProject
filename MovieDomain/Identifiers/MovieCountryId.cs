@@ -15,6 +15,14 @@ namespace MovieDomain.Identifiers
 
         //----------------------------------------------------------------//
 
+        public MovieCountryId(int movieId, int countryId)
+        {
+            MovieId = movieId;
+            CountryId = countryId;
+        }
+
+        //----------------------------------------------------------------//
+
         public override bool Equals(object obj)
         {
             MovieCountryId movieCountry = obj as MovieCountryId;

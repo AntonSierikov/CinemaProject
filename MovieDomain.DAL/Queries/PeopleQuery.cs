@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Threading.Tasks;
 using Dapper;
 using MovieDomain.DAL.Abstract;
 using MovieDomain.DAL.IQueries;
@@ -17,14 +15,20 @@ namespace MovieDomain.DAL.Queries
         {
         }
 
+        //----------------------------------------------------------------//
+
+        public override string GetUniqueConditionByItem(People item)
+        {
+            return $@"WHERE Name = @{nameof(item.Name)} AND Birthday = @{nameof(item.Birthday)} AND
+                            PlaceOfBirth = @{nameof(item.PlaceOfBirth)}";
+        }
 
         //----------------------------------------------------------------//
 
-        public bool IsExist(People item)
+        public Task<int> GetIdByItem(People item)
         {
-            string exist = $@"SELECT COUNT(*) FROM {TableName} WHERE Name = @{nameof(item.Name)} AND 
-                              Birthday = @{nameof(item.Birthday)} AND PlaceOfBirth = @{nameof(item.PlaceOfBirth)}";
-            return _session.Connection.QueryFirstOrDefault<int>(exist, item, _session.Transaction) > default(int);
+            string getById = $@"SELECT COUNT(*) FROM {TableName} {GetUniqueConditionByItem(item)}";
+            return _session.Connection.QueryFirstOrDefaultAsync<int>(getById, item, _session.Transaction);
         }
 
         //----------------------------------------------------------------//

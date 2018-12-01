@@ -20,8 +20,7 @@ namespace MovieDomain.Entities
             
         public MovieCountry(int movieId, int countryId)
         {
-            Id.MovieId = movieId;
-            Id.CountryId = countryId;
+            Id = new MovieCountryId(movieId, countryId);
         }
             
         //----------------------------------------------------------------//

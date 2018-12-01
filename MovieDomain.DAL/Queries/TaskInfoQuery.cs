@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 using MovieDomain.Entities;
 using MovieDomain.DAL.Abstract;
 using MovieDomain.DAL.IQueries;
@@ -19,6 +19,13 @@ namespace MovieDomain.DAL.Queries
 
         //----------------------------------------------------------------//
 
+        public override string GetUniqueConditionByItem(TaskInfo item)
+        {
+            return $"WHERE Description = @{nameof(item.Description)} AND Interval = @{nameof(item.Interval)}";
+        }
+
+        //----------------------------------------------------------------//
+
         public IEnumerable<TaskInfo> GetTaskForRun()
         {
             string getTasks = $"SELECT * FROM {TableName} WHERE RunNow = 1 OR SYSDATETIME() > LastEndingDateTime + CAST(Interval as DATETIME)";
@@ -27,10 +34,10 @@ namespace MovieDomain.DAL.Queries
 
         //----------------------------------------------------------------//
 
-        public bool IsExist(TaskInfo info)
+        public Task<int> GetIdByItem(TaskInfo info)
         {
-            string taskExist = $"SELECT COUNT(*) FROM {TableName} WHERE Id = @{nameof(info.Id)}";
-            return _session.Connection.QueryFirstOrDefault(taskExist, info, _session.Transaction) > default(int);
+            string getById = $"SELECT Id FROM {TableName} {GetUniqueConditionByItem(info)}";
+            return _session.Connection.QueryFirstOrDefaultAsync<int>(getById, info, _session.Transaction);
         }
 
         //----------------------------------------------------------------//

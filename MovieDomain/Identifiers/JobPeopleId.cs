@@ -1,30 +1,30 @@
 ﻿namespace MovieDomain.Identifiers
 {
-    public class MovieCompanyId 
+    public class JobPeopleId
     {
 
         //----------------------------------------------------------------//
 
-        public int MovieId { get; set; }
+        public int JobId { get; set; }
 
-        public int CompanyId { get; set; }
+        public int PeopleId { get; set; }
 
         //----------------------------------------------------------------//
 
-        public MovieCompanyId(int movieId, int companyId)
+        public JobPeopleId(int jobId, int peopleId)
         {
-            MovieId = movieId;
-            CompanyId = companyId;
+            JobId = JobId;
+            PeopleId = peopleId;
         }
 
         //----------------------------------------------------------------//
 
         public override bool Equals(object obj)
         {
-            MovieCompanyId movieCompany = obj as MovieCompanyId;
-            if(movieCompany != null)
+            JobPeopleId jobPeople = obj as JobPeopleId;
+            if(jobPeople != null)
             {
-                return movieCompany.CompanyId.Equals(CompanyId) && movieCompany.MovieId.Equals(MovieId);
+                return jobPeople.PeopleId.Equals(PeopleId) && jobPeople.JobId.Equals(JobId);
             }
 
             return false;
@@ -34,7 +34,7 @@
 
         public override int GetHashCode()
         {
-            return MovieId.GetHashCode() ^ CompanyId.GetHashCode();
+            return JobId.GetHashCode() ^ PeopleId.GetHashCode();
         }
 
         //----------------------------------------------------------------//

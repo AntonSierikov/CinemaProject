@@ -19,7 +19,7 @@ namespace MovieDomain.DAL.Commands
 
         protected override string GenerateInsertQuery(Cast entity)
         {
-            return  $@"INSERT INTO {TableConstans.CAST} VALUES OUTPUT Inserted.Id
+            return  $@"INSERT INTO {TableConstans.CAST} OUTPUT Inserted.Id VALUES 
                        (DEFAULT, @{nameof(entity.CharacterCast)}, 
                                  @{nameof(entity.Gender)},   @{nameof(entity.Order)},
                                  @{nameof(entity.PeopleId)}, @{nameof(entity.MovieId)})";

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading.Tasks;
+using MovieDomain.Common.Extensions;
 using TaskService.Domain;
 using TaskService.Domain.ServiceInterface;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,7 +19,9 @@ namespace TaskService.ConsoleClient
             try
             {
                 ICinemaTaskService taskService = provider.GetRequiredService<ICinemaTaskService>();
-                taskService.RunTasks();
+                Task<string> task = taskService.RunTasks().ContinueWith(c => c.GetExceptionLog());
+                task.Wait();
+                Console.WriteLine(task.Result);
             }
             catch(Exception e)
             {

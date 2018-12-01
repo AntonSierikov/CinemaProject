@@ -11,12 +11,12 @@ namespace MovieDomain.Entities
     { 
         public Genre()
         {
-            Movies = new List<MovieGenre>();
+            Movies = new List<Movie>();
         }
 
         public string genre { get; set; }
 
-        public IList<MovieGenre> Movies { get; set; }
+        public IList<Movie> Movies { get; set; }
 
         public Genre(string genre) : this()
         {

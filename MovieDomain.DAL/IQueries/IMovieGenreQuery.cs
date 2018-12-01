@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using MovieDomain.Entities;
+using MovieDomain.Identifiers;
 
 namespace MovieDomain.DAL.IQueries
 {
-    public interface IMovieGenreQuery
+    public interface IMovieGenreQuery : IQuery<MovieGenre, MovieGenreId>
     {
     }
 }

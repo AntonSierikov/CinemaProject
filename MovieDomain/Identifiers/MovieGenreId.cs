@@ -13,6 +13,13 @@ namespace MovieDomain.Identifiers
 
         public int GenreId { get; set; }
 
+        //----------------------------------------------------------------//
+
+        public MovieGenreId(int movieId, int genreId)
+        {
+            MovieId = movieId;
+            GenreId = genreId;
+        }
 
         //----------------------------------------------------------------//
 

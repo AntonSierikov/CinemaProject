@@ -6,7 +6,7 @@ using Dapper;
 
 namespace MovieDomain.DAL.Commands
 {
-    internal class ProductionCompanyCommand : BaseCommand<ProductionCompany, int>, ICommand<ProductionCompany, int>
+    internal class ProductionCompanyCommand : BaseCommand<ProductionCompany, int>, ICompanyCommand
     {
 
         //----------------------------------------------------------------//
@@ -17,21 +17,18 @@ namespace MovieDomain.DAL.Commands
 
         //----------------------------------------------------------------//
 
-        public int Insert(ProductionCompany entity)
+        protected override string GenerateInsertQuery(ProductionCompany entity)
         {
-            string insert = $@"INSERT {TableConstans.PRODUCTION_COMPANY} VALUES  OUTPUT Inserted.CompanyId
-                               (DEFAULT, @{nameof(entity.Name)}";
-            return _session.Connection.ExecuteScalar<int>(insert, entity, _session.Transaction);
+            return $@"INSERT {TableName} OUTPUT Inserted.Id  VALUES  
+                     (@{nameof(entity.Name)})";
         }
-
         //----------------------------------------------------------------//
 
-        protected override int UpdateEntity(ProductionCompany entity)
+        protected override string GenerateUpdateQuery(ProductionCompany entity)
         {
-            string update = $@"UPDATE {TableConstans.PRODUCTION_COMPANY} SET 
-                               SET Name = @{nameof(entity.Name)}
-                               WHERE CompanyId = @{nameof(entity.Id)}";
-            return _session.Connection.Execute(update, _session.Transaction);
+            return  $@"UPDATE {TableName}  
+                       SET Name = @{nameof(entity.Name)}
+                       WHERE Id = @{nameof(entity.Id)}";
         }
 
         //----------------------------------------------------------------//

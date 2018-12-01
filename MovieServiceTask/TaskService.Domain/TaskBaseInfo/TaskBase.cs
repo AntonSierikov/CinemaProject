@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using MovieDomain.Common;
 using MovieDomain.Common.Constans;
 using MovieDomain.Entities;
-using MovieDomain.DAL.
+using MovieDomain.DAL.Abstract;
 using TaskService.Domain.Entities;
 using TaskService.Domain.Helpers;
 
@@ -29,7 +29,7 @@ namespace TaskService.Domain.TaskBaseInfo
 
         //----------------------------------------------------------------//    
 
-        public abstract void Execute();
+        public abstract Task Execute(ISession session);
 
         //----------------------------------------------------------------//
         
@@ -64,13 +64,13 @@ namespace TaskService.Domain.TaskBaseInfo
 
         //----------------------------------------------------------------//
 
-        public virtual bool SafeExecute()
+        public async virtual Task<bool> SafeExecute(ISession session)
         {
             OnStart();
             bool IsSuccess = false;
             try
             {
-                Execute();
+                await Execute(session);
                 IsSuccess = true;
                 OnSuccess();
             }

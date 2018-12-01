@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using MovieDomain.Abstract;
 using MovieDomain.Common.Extensions;
+using MovieDomain.Common.Enums;
 using MovieDomain.DAL.ICommands;
 using MovieDomain.DAL.IQueries;
 
@@ -35,37 +36,89 @@ namespace MovieDomain.DAL.Helpers
 
         //----------------------------------------------------------------//
 
-        public static void SaveOrUpdate<TEn, TKey>(this ICommand<TEn, TKey> command, TEn entity) where TEn: DbObject<TKey>
+        public static DbCommandResult? SaveOrUpdate<TEn, TKey>(this ICommand<TEn, TKey> command, TEn entity) where TEn: DbObject<TKey>
         {
+            DbCommandResult? result = null;
             if (entity.Id.Equals(default(TEn)))
             {
                 entity.Id = command.Insert(entity);
+                if (!entity.Id.Equals(default(TEn)))
+                {
+                    result = DbCommandResult.Inserted;
+                }
             }
-            else 
+            else if(command.Update(entity))
             {
-                command.Update(entity);
+                result = DbCommandResult.Updated;
             }
+
+            return result;
         }
 
-        public static async Task SaveOrUpdateAsync<TEn, TKey>(this ICommand<TEn, TKey> command, TEn entity) where TEn : DbObject<TKey>
+        public static async Task<DbCommandResult?> SaveOrUpdateAsync<TEn, TKey>(this ICommand<TEn, TKey> command, TEn entity) where TEn : DbObject<TKey>
         {
+            DbCommandResult? result = null;
             if (entity.Id.Equals(default(TKey)))
             {
                 entity.Id = await command.InsertAsync(entity);
+                if (!entity.Id.Equals(default(TKey)))
+                {
+                    result = DbCommandResult.Inserted;
+                }
             }
-            else
+            else if(await command.UpdateAsync(entity))
             {
-                await command.UpdateAsync(entity);
+                result = DbCommandResult.Updated;
             }
+
+            return result;
+        }
+
+        //----------------------------------------------------------------//
+
+        public static async Task<DbCommandResult?> SaveOrUpdateAsync<TEn, TKey>(this ICommand<TEn, TKey> command, 
+                                                                                     IQuery<TEn, TKey> query, 
+                                                                                     TEn entity) where TEn: DbObject<TKey>
+        {
+            entity.Id = entity.Id.Equals(default(TKey)) ? await query.GetIdByItem(entity) : entity.Id;
+            return await command.SaveOrUpdateAsync(entity);
+        }
+
+        //----------------------------------------------------------------//
+
+        public static async Task<Dictionary<DbCommandResult, List<TEn>>> 
+            SaveOrUpdateCollectionAsync<TEn, TKey>(this ICommand<TEn, TKey> command,
+                                                        IQuery<TEn, TKey> query,
+                                                        IEnumerable<TEn> entities, 
+                                                        Func<TEn,string> selectLog = null) where TEn : DbObject<TKey>
+        {
+            Dictionary<DbCommandResult, List<TEn>> resultDictionary = new Dictionary<DbCommandResult, List<TEn>>();
+            resultDictionary[DbCommandResult.Inserted] = new List<TEn>();
+            resultDictionary[DbCommandResult.Updated] = new List<TEn>();
+
+            foreach(TEn entity in entities)
+            {
+                switch(await command.SaveOrUpdateAsync(query, entity))
+                {
+                    case DbCommandResult.Inserted:
+                        resultDictionary[DbCommandResult.Inserted].Add(entity);                      
+                        break;
+                    case DbCommandResult.Updated:
+                        resultDictionary[DbCommandResult.Updated].Add(entity);
+                        break;
+                }
+            }
+
+            return resultDictionary;
         }
 
         //----------------------------------------------------------------//
 
         public static async Task<bool> SaveIfNotExist<TEn, TKey>(this ICommand<TEn, TKey> command, 
-                                                                     IQuery<TEn, TKey> query,   
-                                                                     TEn entity) where TEn : DbObject<TKey>
+                                                                      IQuery<TEn, TKey> query,   
+                                                                      TEn entity) where TEn : DbObject<TKey>
         {
-            if (!query.IsExist(entity))
+            if (!await query.IsExist(entity))
             {
                 entity.Id = await command.InsertAsync(entity);
                 return true;
@@ -91,6 +144,8 @@ namespace MovieDomain.DAL.Helpers
             }
             return collection;
         }
-                
+
+        //----------------------------------------------------------------//
+ 
     }
 }

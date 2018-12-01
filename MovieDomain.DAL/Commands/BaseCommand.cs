@@ -28,7 +28,7 @@ namespace MovieDomain.DAL.Commands
         public bool Update(T item)
         {
             string updateQuery = GenerateUpdateQuery(item);
-            return _session.Connection.Execute(updateQuery, item, _session.Transaction) > default(int);
+            return _session.Connection.Execute(updateQuery, item, _session.Transaction, _session.Connection.ConnectionTimeout) > default(int);
         }
 
         //----------------------------------------------------------------//
@@ -36,7 +36,7 @@ namespace MovieDomain.DAL.Commands
         public async Task<bool> UpdateAsync(T item)
         {
             string updateQuery = GenerateUpdateQuery(item);
-            return await _session.Connection.ExecuteAsync(updateQuery, item, _session.Transaction) > default(int);
+            return await _session.Connection.ExecuteAsync(updateQuery, item, _session.Transaction, _session.Connection.ConnectionTimeout) > default(int);
         }
 
         //----------------------------------------------------------------//
@@ -44,7 +44,7 @@ namespace MovieDomain.DAL.Commands
         public TKey Insert(T item)
         {
             string insert = GenerateInsertQuery(item);
-            return _session.Connection.QueryFirstOrDefault<TKey>(insert, item, _session.Transaction);
+            return _session.Connection.QueryFirstOrDefault<TKey>(insert, item, _session.Transaction, _session.Connection.ConnectionTimeout);
         }
 
         //----------------------------------------------------------------//
@@ -52,7 +52,7 @@ namespace MovieDomain.DAL.Commands
         public async Task<TKey> InsertAsync(T item)
         {
             string insertAsync = GenerateInsertQuery(item);
-            return await _session.Connection.QueryFirstOrDefaultAsync<TKey>(insertAsync, item, _session.Transaction);
+            return await _session.Connection.QueryFirstOrDefaultAsync<TKey>(insertAsync, item, _session.Transaction, _session.Connection.ConnectionTimeout);
         }
 
         //----------------------------------------------------------------//
