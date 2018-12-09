@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MovieDomain.BL.PageDto;
+using System.Threading.Tasks;
+using MovieDomain.Entities;
 
 namespace MovieDomain.BL.ServicesInterface
 {
@@ -10,8 +9,10 @@ namespace MovieDomain.BL.ServicesInterface
 
         //----------------------------------------------------------------//
 
-        MovieMainPageDto GetMovieInfo();
+        Task<Movie> GetMovieInfo(int movieId);
 
+
+        //----------------------------------------------------------------//
 
     }
 }

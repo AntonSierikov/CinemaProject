@@ -7,8 +7,7 @@ namespace TaskService.Domain.DTO.CinemaEntities
 {
     public class CastDto
     {
-        public int Id;
-
+    
         public int CastId;
 
         public int Gender;
@@ -21,6 +20,7 @@ namespace TaskService.Domain.DTO.CinemaEntities
 
         public string MovieId;
 
+        [JsonProperty("id")]
         public string PeopleId;
     }
 }

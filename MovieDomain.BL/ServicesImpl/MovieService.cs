@@ -1,30 +1,35 @@
 ﻿using System;
+using System.Data;
 using System.Collections.Generic;
-using System.Text;
-using MovieDomain.Entities;
-using MovieDomain.Common.Services;
-using MovieDomain.BL.PageDto;
-using MovieDomain.BL.Dto;
-using MovieDomain.DAL.IQueries;
+using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using MovieDomain.Entities;
+using MovieDomain.DAL.IQueries;
+using MovieDomain.BL.Model;
+using MovieDomain.BL.ServicesInterface;
 
 namespace MovieDomain.BL.ServicesImpl
 {
-    internal class MovieService
+    internal class MovieService : BaseService, IMovieService
     {
+        //----------------------------------------------------------------//
+
+        public MovieService(IServiceProvider provider)
+            : base(provider)
+        {}
 
         //----------------------------------------------------------------//
 
-        public MovieService() {}
-
-        //----------------------------------------------------------------//
-
-        public MovieMainPageDto GetMovieInfo(int movieId)
+        public async Task<Movie> GetMovieInfo(int movieId)
         {
-            IMovieQuery query = ServiceLocator.ServiceProvider.GetService<IMovieQuery>();
-            Movie movie = query.GetItem(movieId);
+            Movie movie = null;
+            using (IDbConnection connection = OpenConnection())
+            {
+                IMovieQuery query = queryFactory.CreateQuery<IMovieQuery>(connection);
+                movie = await query.GetItem(movieId);
+            }
 
-            MovieMainPageDto movieMainPageDto = new MovieMainPageDto();
+            return movie;
         }
 
         //----------------------------------------------------------------//

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Linq;
+using System.Data;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,31 +35,39 @@ namespace TaskService.Domain.Service
 
         public async Task RunTasks()
         {
-           
-            using (ISession session = _sessionFunc.CreateSession())
-            {
-                ITaskQuery taskQuery = _queryFactory.CreateQuery<ITaskQuery>(session);
-                IEnumerable<TaskInfo> enumeration = taskQuery.GetTaskForRun();
-                List<Task> tasks = new List<Task>();
-                foreach (TaskInfo info in enumeration)
-                {
-                    TaskBase taskBase = MovieTaskFactory.CreateTask(info, _serviceProvider, session);
-                    tasks.Add(RunTask(taskBase, session));
-                }
 
-                await Task.WhenAll(tasks);
-                session.SaveChanges();
+            IDbConnection connection = _serviceProvider.GetRequiredService<IDbConnection>();
+            connection.Open();
+            using (connection)
+            {
+                try
+                {
+                    ITaskQuery taskQuery = _queryFactory.CreateQuery<ITaskQuery>(connection);
+                    IEnumerable<TaskInfo> enumeration = taskQuery.GetTaskForRun();
+                    List<Task> tasks = new List<Task>();
+                    foreach (TaskInfo info in enumeration)
+                    {
+                        TaskBase taskBase = MovieTaskFactory.CreateTask(info, _serviceProvider);
+                        tasks.Add(RunTask(taskBase, connection));
+                    }
+
+                    await Task.WhenAll(tasks);
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
         }
 
         //----------------------------------------------------------------//
 
-        public async Task RunTask(TaskBase taskBase, ISession session)
+        public async Task RunTask(TaskBase taskBase, IDbConnection connection)
         {
-            bool isSuccess = await Task.Run(() => taskBase.SafeExecute(session));
+            bool isSuccess = await Task.Run(() => taskBase.SafeExecute(connection));
             if (isSuccess)
             {
-                _commandFactory.CreateCommand<ITaskInfoCommand>(session)
+                _commandFactory.CreateCommand<ITaskInfoCommand>(connection)
                                .Update(taskBase.taskInfo);
             }
         }

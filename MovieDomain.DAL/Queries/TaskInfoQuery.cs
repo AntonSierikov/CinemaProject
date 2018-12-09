@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Data;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MovieDomain.Entities;
@@ -10,6 +10,10 @@ namespace MovieDomain.DAL.Queries
 {
     internal class TaskInfoQuery : BaseQuery<TaskInfo, int>, ITaskQuery
     {
+
+        //----------------------------------------------------------------//
+
+        public TaskInfoQuery(IDbConnection connection) : base(connection) {}
 
         //----------------------------------------------------------------//
 
@@ -29,7 +33,7 @@ namespace MovieDomain.DAL.Queries
         public IEnumerable<TaskInfo> GetTaskForRun()
         {
             string getTasks = $"SELECT * FROM {TableName} WHERE RunNow = 1 OR SYSDATETIME() > LastEndingDateTime + CAST(Interval as DATETIME)";
-            return _session.Connection.Query<TaskInfo>(getTasks, null, _session.Transaction);
+            return _connection.Query<TaskInfo>(getTasks, null, _transaction);
         }
 
         //----------------------------------------------------------------//
@@ -37,7 +41,7 @@ namespace MovieDomain.DAL.Queries
         public Task<int> GetIdByItem(TaskInfo info)
         {
             string getById = $"SELECT Id FROM {TableName} {GetUniqueConditionByItem(info)}";
-            return _session.Connection.QueryFirstOrDefaultAsync<int>(getById, info, _session.Transaction);
+            return _connection.QueryFirstOrDefaultAsync<int>(getById, info, _transaction);
         }
 
         //----------------------------------------------------------------//

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using MovieDomain.Entities;
 using MovieDomain.Identifiers;
 using MovieDomain.DAL.ICommands;
@@ -6,10 +7,16 @@ using MovieDomain.DAL.Abstract;
 
 namespace MovieDomain.DAL.Commands
 {
-    internal class MovieGenreCommand : BaseCommand<MovieGenre, MovieGenreId>, IMovieGenreCommand
+    internal class MovieGenreCommand : EntityKeyCommand<MovieGenre, MovieGenreId>, IMovieGenreCommand
     {
+        public MovieGenreCommand(IDbConnection connection) : base(connection) {}
+
+        //----------------------------------------------------------------//
+
         public MovieGenreCommand(ISession session) : base(session)
         {}
+
+        //----------------------------------------------------------------//
 
         protected override string GenerateInsertQuery(MovieGenre item)
         {
@@ -19,9 +26,14 @@ namespace MovieDomain.DAL.Commands
             return insert;
         }
 
+        //----------------------------------------------------------------//
+
         protected override string GenerateUpdateQuery(MovieGenre item)
         {
             throw new NotImplementedException();
         }
+
+        //----------------------------------------------------------------//
+
     }
 }

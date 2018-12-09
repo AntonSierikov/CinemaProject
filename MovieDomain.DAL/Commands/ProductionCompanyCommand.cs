@@ -1,4 +1,5 @@
-﻿using MovieDomain.Entities;
+﻿using System.Data;
+using MovieDomain.Entities;
 using MovieDomain.DAL.Abstract;
 using MovieDomain.DAL.Constans;
 using MovieDomain.DAL.ICommands;
@@ -8,6 +9,10 @@ namespace MovieDomain.DAL.Commands
 {
     internal class ProductionCompanyCommand : BaseCommand<ProductionCompany, int>, ICompanyCommand
     {
+
+        //----------------------------------------------------------------//
+
+        public ProductionCompanyCommand(IDbConnection connection) : base(connection) {}
 
         //----------------------------------------------------------------//
 

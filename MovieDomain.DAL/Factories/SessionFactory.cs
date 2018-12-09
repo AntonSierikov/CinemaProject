@@ -6,6 +6,15 @@ namespace MovieDomain.DAL.Factories
 {
     public class SessionFactory : ISessionFactory
     {
-        public ISession CreateSession(IsolationLevel level) => new Session(level);
+        private string _connectionString;
+
+        public SessionFactory(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
+
+        public ISession CreateSession(IsolationLevel level) => new Session(_connectionString, level);
+
+        public ISession CreateSession(IDbConnection connection, IsolationLevel level) => new Session(connection, level);
     }
 }

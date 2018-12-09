@@ -1,4 +1,5 @@
-﻿using MovieDomain.Entities;
+﻿using System.Data;
+using MovieDomain.Entities;
 using MovieDomain.DAL.Abstract;
 using MovieDomain.DAL.ICommands;
 using Dapper;
@@ -7,6 +8,10 @@ namespace MovieDomain.DAL.Commands
 {
     internal class ProductionCountryCommand : BaseCommand<ProductionCountry, int>, ICountryCommand
     {
+        public ProductionCountryCommand(IDbConnection connection) : base(connection) {}
+
+        //----------------------------------------------------------------//
+
         public ProductionCountryCommand(ISession session)
             : base(session)
         {}
@@ -23,7 +28,7 @@ namespace MovieDomain.DAL.Commands
         protected override string GenerateUpdateQuery(ProductionCountry entity)
         {
             string update = $@"UPDATE {TableName} SET 
-                              iso_3155_1 = @{nameof(entity.iso_3166_1)},
+                              iso_3166_1 = @{nameof(entity.iso_3166_1)},
                               Name = @{nameof(entity.Name)}
                               WHERE Id = @{nameof(entity.Id)}";
             return update;

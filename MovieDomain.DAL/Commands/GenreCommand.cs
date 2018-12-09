@@ -2,12 +2,18 @@
 using MovieDomain.DAL.ICommands;
 using MovieDomain.DAL.Abstract;
 using Dapper;
+using System.Data;
 
 namespace MovieDomain.DAL.Commands
 {
     internal class GenreCommand : BaseCommand<Genre, int>, IGenreCommand
     {
         //----------------------------------------------------------------//
+
+        public GenreCommand(IDbConnection connection) : base(connection) {}
+
+        //----------------------------------------------------------------//
+
 
         public GenreCommand(ISession session)
             : base(session)

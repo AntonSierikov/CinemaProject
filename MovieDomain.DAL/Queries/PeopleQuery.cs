@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using System.Data;
 using Dapper;
 using MovieDomain.DAL.Abstract;
 using MovieDomain.DAL.IQueries;
@@ -8,6 +9,10 @@ namespace MovieDomain.DAL.Queries
 {
     internal class PeopleQuery : BaseQuery<People, int>, IPeopleQuery
     {
+
+        //----------------------------------------------------------------//
+
+        public PeopleQuery(IDbConnection connection) : base(connection) {}
 
         //----------------------------------------------------------------//
 
@@ -28,7 +33,7 @@ namespace MovieDomain.DAL.Queries
         public Task<int> GetIdByItem(People item)
         {
             string getById = $@"SELECT COUNT(*) FROM {TableName} {GetUniqueConditionByItem(item)}";
-            return _session.Connection.QueryFirstOrDefaultAsync<int>(getById, item, _session.Transaction);
+            return _connection.QueryFirstOrDefaultAsync<int>(getById, item, _transaction);
         }
 
         //----------------------------------------------------------------//

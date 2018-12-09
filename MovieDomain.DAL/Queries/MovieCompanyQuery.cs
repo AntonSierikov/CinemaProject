@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using System.Data;
 using System.Threading.Tasks;
 using MovieDomain.Entities;
 using MovieDomain.Identifiers;
@@ -9,6 +10,11 @@ namespace MovieDomain.DAL.Queries
 {
     internal class MovieCompanyQuery : EntityKeyQuery<MovieCompany, MovieCompanyId>, IMovieCompanyQuery
     {
+
+        //----------------------------------------------------------------//
+
+        public MovieCompanyQuery(IDbConnection connection) : base(connection)
+        {}
 
         //----------------------------------------------------------------//
 
@@ -27,7 +33,7 @@ namespace MovieDomain.DAL.Queries
         public Task<MovieCompanyId> GetIdByItem(MovieCompany item)
         {
             string isExist = $@"SELECT MovieId, CompanyId FROM {TableName} {GetUniqueConditionByItem(item)}";
-            return _session.Connection.QueryFirstOrDefaultAsync<MovieCompanyId>(isExist, item.Id, _session.Transaction);
+            return _connection.QueryFirstOrDefaultAsync<MovieCompanyId>(isExist, item.Id, _transaction);
         }
 
         //----------------------------------------------------------------//

@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using System.Data;
+using Dapper;
 using MovieDomain.Entities;
 using MovieDomain.DAL.IQueries;
 using MovieDomain.DAL.Abstract;
@@ -8,6 +9,11 @@ namespace MovieDomain.DAL.Queries
 {
     internal class JobQuery : BaseQuery<Job, int>, IJobQuery
     {
+
+        //----------------------------------------------------------------//
+            
+        public JobQuery(IDbConnection conneciton) : base(conneciton)
+        {}
 
         //----------------------------------------------------------------//
 
@@ -20,14 +26,14 @@ namespace MovieDomain.DAL.Queries
         public Task<int> GetIdByItem(Job item)
         {
             string getId = $@"SELECT Id FROM {TableName} {GetUniqueConditionByItem(item)}";
-            return _session.Connection.QueryFirstOrDefaultAsync<int>(getId, item, _session.Transaction);
+            return _connection.QueryFirstOrDefaultAsync<int>(getId, item, _transaction);
         }
 
         //----------------------------------------------------------------//
 
         public override string GetUniqueConditionByItem(Job item)
         {
-            return $"WHERE job = @{nameof(item.job)} AND Department = @{nameof(item.Department)}";
+            return $"WHERE job = @{nameof(item.job)} AND DepartmentId = @{nameof(item.DepartmentId)}";
         }
 
         //----------------------------------------------------------------//

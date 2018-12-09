@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using MovieDomain.DAL.Abstract;
+﻿using System.Data;
+using System.Threading.Tasks;
 using TaskService.Domain.TaskBaseInfo;
 
 namespace TaskService.Domain.ServiceInterface
@@ -11,7 +11,7 @@ namespace TaskService.Domain.ServiceInterface
 
         Task RunTasks();
 
-        Task RunTask(TaskBase taskBase, ISession session);
+        Task RunTask(TaskBase taskBase, IDbConnection connection);
 
         //----------------------------------------------------------------//
 

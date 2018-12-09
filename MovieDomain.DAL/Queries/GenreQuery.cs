@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Data;
+using System.Threading.Tasks;
 using MovieDomain.Entities;
 using MovieDomain.DAL.Abstract;
 using MovieDomain.DAL.IQueries;
@@ -11,6 +12,11 @@ namespace MovieDomain.DAL.Queries
 
         //----------------------------------------------------------------//
 
+        public GenreQuery(IDbConnection connection) : base(connection)
+        {}
+
+        //----------------------------------------------------------------//
+
         public GenreQuery(ISession session)
             : base(session)
         {}
@@ -20,7 +26,7 @@ namespace MovieDomain.DAL.Queries
         public Genre GetGenre(string genre)
         {
             string getGenre = $"SELECT TOP 1 * FROM {TableName} WHERE genre = @{nameof(genre)}";
-            return _session.Connection.QueryFirstOrDefault<Genre>(getGenre, new { genre }, _session.Transaction);
+            return _connection.QueryFirstOrDefault<Genre>(getGenre, new { genre }, _transaction);
         }
 
         //----------------------------------------------------------------//
@@ -32,7 +38,7 @@ namespace MovieDomain.DAL.Queries
         public Task<int> GetIdByItem(Genre genre)
         {
             string getGenre = $"SELECT Id FROM {TableName} {GetUniqueConditionByItem(genre)}";
-            return _session.Connection.QueryFirstOrDefaultAsync<int>(getGenre, genre, _session.Transaction);
+            return _connection.QueryFirstOrDefaultAsync<int>(getGenre, genre, _transaction);
         }
 
         //----------------------------------------------------------------//

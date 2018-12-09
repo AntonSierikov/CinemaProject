@@ -6,15 +6,18 @@ namespace MovieDomain.DAL.Abstract
     internal abstract class BaseDBOperation<T> where T: class
     {
 
-        protected readonly ISession _session;
+        protected readonly IDbConnection _connection;
+
+        protected readonly IDbTransaction _transaction;
 
         protected readonly string TableName;
 
         //----------------------------------------------------------------//
 
-        public BaseDBOperation(ISession session)
+        public BaseDBOperation(IDbConnection connection, IDbTransaction transaction)
         {
-            _session = session;
+            _connection = connection;
+            _transaction = transaction;
             TableName = TableFactory.GetNameTable<T>();
         }
 

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Data;
+using System.Threading.Tasks;
 using MovieDomain.Entities;
 using MovieDomain.DAL.Abstract;
 using MovieDomain.DAL.IQueries;
@@ -9,6 +10,7 @@ namespace MovieDomain.DAL.Queries
 {
     internal class MovieGenreQuery : EntityKeyQuery<MovieGenre, MovieGenreId>, IMovieGenreQuery
     {
+        public MovieGenreQuery(IDbConnection connection) : base(connection) {}
 
         //----------------------------------------------------------------//
 
@@ -27,7 +29,7 @@ namespace MovieDomain.DAL.Queries
         public Task<MovieGenreId> GetIdByItem(MovieGenre item)
         {
             string getById = $@"SELECT MovieId, GenreId FROM {TableName} {GetUniqueConditionByItem(item)}";
-            return _session.Connection.QueryFirstOrDefaultAsync<MovieGenreId>(getById, item.Id, _session.Transaction);
+            return _connection.QueryFirstOrDefaultAsync<MovieGenreId>(getById, item.Id, _transaction);
         }
 
         //----------------------------------------------------------------//

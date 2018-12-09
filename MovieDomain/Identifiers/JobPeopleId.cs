@@ -1,5 +1,8 @@
-﻿namespace MovieDomain.Identifiers
+﻿using MovieDomain.Attributes.Database;
+
+namespace MovieDomain.Identifiers
 {
+    [ClusteredPrimaryKey]
     public class JobPeopleId
     {
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Threading.Tasks;
 using MovieDomain.Abstract;
 using MovieDomain.DAL.Helpers;
@@ -10,12 +11,21 @@ namespace MovieDomain.DAL.Commands
     internal abstract class BaseCommand<T, TKey> : BaseDBOperation<T> 
                                                    where T: DbObject<TKey>
     {
+        protected readonly ISession _session;
+
+        //----------------------------------------------------------------//
+
+        public BaseCommand(IDbConnection connnection)
+            : base(connnection, null)
+        {}    
 
         //----------------------------------------------------------------//
 
         public BaseCommand(ISession session)
-            :base(session)
-        {}
+            :base(session.Connection, session.Transaction)
+        {
+            _session = session;
+        }
         
         //----------------------------------------------------------------//
 
@@ -25,43 +35,44 @@ namespace MovieDomain.DAL.Commands
 
         //----------------------------------------------------------------//
 
-        public bool Update(T item)
+        public virtual bool Update(T item)
         {
             string updateQuery = GenerateUpdateQuery(item);
-            return _session.Connection.Execute(updateQuery, item, _session.Transaction, _session.Connection.ConnectionTimeout) > default(int);
+            return _connection.Execute(updateQuery, item, _transaction, _connection.ConnectionTimeout) > default(int);
         }
 
         //----------------------------------------------------------------//
 
-        public async Task<bool> UpdateAsync(T item)
+        public virtual async Task<bool> UpdateAsync(T item)
         {
             string updateQuery = GenerateUpdateQuery(item);
-            return await _session.Connection.ExecuteAsync(updateQuery, item, _session.Transaction, _session.Connection.ConnectionTimeout) > default(int);
+            return await _connection.ExecuteAsync(updateQuery, item, _transaction, _connection.ConnectionTimeout) > default(int);
         }
 
         //----------------------------------------------------------------//
 
-        public TKey Insert(T item)
+        public virtual TKey Insert(T item)
         {
             string insert = GenerateInsertQuery(item);
-            return _session.Connection.QueryFirstOrDefault<TKey>(insert, item, _session.Transaction, _session.Connection.ConnectionTimeout);
+            return _connection.QueryFirstOrDefault<TKey>(insert, item, _transaction, _connection.ConnectionTimeout);
         }
 
         //----------------------------------------------------------------//
 
-        public async Task<TKey> InsertAsync(T item)
+        public virtual async Task<TKey> InsertAsync(T item)
         {
             string insertAsync = GenerateInsertQuery(item);
-            return await _session.Connection.QueryFirstOrDefaultAsync<TKey>(insertAsync, item, _session.Transaction, _session.Connection.ConnectionTimeout);
+            return await _connection.QueryFirstOrDefaultAsync<TKey>(insertAsync, item, _transaction, _session.Connection.ConnectionTimeout);
         }
 
         //----------------------------------------------------------------//
 
         public bool Delete(TKey key)
         {
-            string condition = SqlGenerateHelper.GenerateUniqueCondition<T, TKey>(nameof(key));
+            bool isClustered = SqlGenerateHelper.IsClustered<T>();
+            string condition = SqlGenerateHelper.GenerateUniqueCondition<T, TKey>(nameof(key), isClustered);
             string deleteEntity = $"DELETE {TableName} WHERE {condition}";
-            return _session.Connection.Execute(condition) > default(int);
+            return _connection.Execute(condition, SqlGenerateHelper.CreatePrimaryKeyParameter(key, isClustered)) > default(int);
         }
 
         //----------------------------------------------------------------//

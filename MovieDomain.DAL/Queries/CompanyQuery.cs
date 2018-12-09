@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿using System.Data;
 using System.Threading.Tasks;
 using Dapper;
 using MovieDomain.DAL.Abstract;
@@ -9,6 +9,11 @@ namespace MovieDomain.DAL.Queries
 {
     internal class CompanyQuery : BaseQuery<ProductionCompany, int>, ICompanyQuery
     {
+
+        //----------------------------------------------------------------//
+
+        public CompanyQuery(IDbConnection connection) : base(connection)
+        {}
 
         //----------------------------------------------------------------//
 
@@ -24,7 +29,7 @@ namespace MovieDomain.DAL.Queries
         public Task<int> GetIdByItem(ProductionCompany item)
         {
             string getId = $"SELECT TOP 1 Id FROM {TableName} {GetUniqueConditionByItem(item)}";
-            return _session.Connection.QueryFirstOrDefaultAsync<int>(getId, item, _session.Transaction);
+            return _connection.QueryFirstOrDefaultAsync<int>(getId, item, _transaction);
         }
 
         //----------------------------------------------------------------//

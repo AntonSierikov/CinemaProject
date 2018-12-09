@@ -1,17 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 using MovieDomain.DAL.Abstract;
-using MovieDomain.DAL.Infrastructure;
-using Dapper;
 
 namespace MovieDomain.DAL.Concrety
 {
     public class Session : ISession
     {
         private Boolean _isCommited;
+
+        private readonly Boolean _needDisposeConnection;
 
         private IDbConnection _connection;
 
@@ -39,11 +38,12 @@ namespace MovieDomain.DAL.Concrety
 
         //----------------------------------------------------------------//
 
-        public Session(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted)
+        public Session(String connectionString, IsolationLevel isolationLevel = IsolationLevel.ReadCommitted)
         {
-            _connection = new SqlConnection(ConfigurationFactory.MainDb);
+            _connection = new SqlConnection(connectionString);
             _connection.Open();
             _dbTransaction = _connection.BeginTransaction(isolationLevel);
+            _needDisposeConnection = true;
         }
 
         //----------------------------------------------------------------//
@@ -51,6 +51,7 @@ namespace MovieDomain.DAL.Concrety
         public Session(IDbConnection connection, IsolationLevel isolationLevel = IsolationLevel.ReadCommitted)
         {
             _connection = connection;
+            _needDisposeConnection = false;
             _dbTransaction = _connection.BeginTransaction(isolationLevel);
         }
 
@@ -75,8 +76,11 @@ namespace MovieDomain.DAL.Concrety
             }
             finally
             {
-                _connection?.Close();
-                _connection?.Dispose();
+                if (_needDisposeConnection)
+                {
+                    _connection?.Close();
+                    _connection?.Dispose();
+                }
             }
         }
 

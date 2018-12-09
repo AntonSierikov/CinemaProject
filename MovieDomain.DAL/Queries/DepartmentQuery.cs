@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using System.Data;
+using Dapper;
 using MovieDomain.Entities;
 using MovieDomain.DAL.IQueries;
 using MovieDomain.DAL.Abstract;
@@ -9,18 +10,23 @@ namespace MovieDomain.DAL.Queries
     internal class DepartmentQuery : BaseQuery<Department, int>, IDepartmentQuery
     {
 
+
+        //----------------------------------------------------------------//
+
+        public DepartmentQuery(IDbConnection connection) : base(connection)
+        {}
+
         //----------------------------------------------------------------//
 
         public DepartmentQuery(ISession session) : base(session)
-        {
-        }
+        {}
 
         //----------------------------------------------------------------//
 
         public Task<int> GetIdByItem(Department item)
         {
             string getId = $@"SELECT Id FROM {TableName} {GetUniqueConditionByItem(item)}";
-            return _session.Connection.QueryFirstOrDefaultAsync<int>(getId, item, _session.Transaction);
+            return _connection.QueryFirstOrDefaultAsync<int>(getId, item, _transaction);
         }
 
         //----------------------------------------------------------------//

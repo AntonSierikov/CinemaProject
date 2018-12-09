@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Data;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,49 +20,52 @@ namespace TaskService.Domain.Tasks.PartialFeedTasks
 
         private readonly ILoadDataService _loadDataService;
         private readonly ISessionFactory _sessionFactory;
-        private readonly IServiceProvider _provider;
 
         //----------------------------------------------------------------//
 
         public FeedTopMovies(TaskInfo info, IServiceProvider provider)
-            : base(info)
+            : base(info, provider)
         {
-            _provider = provider;
             _loadDataService = provider.GetRequiredService<ILoadDataService>();
             _sessionFactory = provider.GetRequiredService<ISessionFactory>();
         }
 
         //----------------------------------------------------------------//
 
-        public async override Task Execute(ISession session)
+        public async override Task Execute(IDbConnection connection)
         {
             List<int> movieIds = null;
-            FeedManager feedManager = new FeedManager(session, _provider);
-            List<Task> movieTasks = new List<Task>();
+
             while (movieIds?.Count != 0)
             {
-                movieTasks.Add(SaveTopMoviePage(++option.LastPage, feedManager));
+                await SaveTopMoviePage(++option.LastPage, connection);
                 Logger.Log.Info($"Page {option.LastPage} was loaded");
             }
-
-            await Task.WhenAll(movieTasks);
         }
 
         //----------------------------------------------------------------//
-
-        private async Task<List<int>> SaveTopMoviePage(int pageNumber, FeedManager feedManager)
+        private async Task<List<int>> SaveTopMoviePage(int pageNumber, IDbConnection connection)
         {
             List<int> loadTopMovieIds = await _loadDataService.LoadTopMovieIdsByPage(pageNumber);
-
             foreach (int movieId in loadTopMovieIds)
             {
-                await feedManager.FeedMovieWithSubEntities(movieId);
-                Logger.Log.Info($"Entities for movie with id {movieId} was loaded");
+                await LoadMovieWithEntities(movieId, connection);
             }
             return loadTopMovieIds;
         }
 
         //----------------------------------------------------------------//
+
+        public async Task LoadMovieWithEntities(int movieId, IDbConnection connection)
+        {
+            using(ISession session = _sessionFactory.CreateSession(connection))
+            {
+                FeedManager feedManager = new FeedManager(session, _serviceProvider);
+                await feedManager.FeedMovieWithSubEntities(movieId);
+                Logger.Log.Info($"Entities for movie with id {movieId} was loaded");
+                session.SaveChanges();
+            }
+        }
 
     }
 }

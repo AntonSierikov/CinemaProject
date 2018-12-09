@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
+using System.Data;
 using System.Threading.Tasks;
 using MovieDomain.Common;
 using MovieDomain.Common.Constans;
@@ -21,15 +22,16 @@ namespace TaskService.Domain.TaskBaseInfo
 
         //----------------------------------------------------------------//
 
-        public TaskBase(TaskInfo info)
+        public TaskBase(TaskInfo info, IServiceProvider serviceProvider )
         {
             taskInfo = info;
+            _serviceProvider = serviceProvider;
             option = DeserializeOption();
         }
 
         //----------------------------------------------------------------//    
 
-        public abstract Task Execute(ISession session);
+        public abstract Task Execute(IDbConnection session);
 
         //----------------------------------------------------------------//
         
@@ -64,13 +66,13 @@ namespace TaskService.Domain.TaskBaseInfo
 
         //----------------------------------------------------------------//
 
-        public async virtual Task<bool> SafeExecute(ISession session)
+        public async virtual Task<bool> SafeExecute(IDbConnection connection)
         {
             OnStart();
             bool IsSuccess = false;
             try
             {
-                await Execute(session);
+                await Execute(connection);
                 IsSuccess = true;
                 OnSuccess();
             }

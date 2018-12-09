@@ -6,21 +6,13 @@ using MovieDomain.Abstract;
 
 namespace MovieDomain.Entities
 {
-    public partial class Cast : DbObject<int>
+    public class Cast : Credit
     {   
         public string CharacterCast { get; set; }
 
         public int Gender { get; set; }
 
-        public int? Order { get; set; }
-
-        public int? PeopleId { get; set; }
-
-        public int MovieId { get; set; }
-    
-        public People People { get; set; }
-
-        public Movie Movie { get; set; } 
+        public int? Sequence { get; set; }
 
         //----------------------------------------------------------------//
 
@@ -32,7 +24,7 @@ namespace MovieDomain.Entities
         {
             CharacterCast = characterCast;
             Gender = gender;
-            Order = order;
+            Sequence = order;
         }
 
         //----------------------------------------------------------------//

@@ -92,18 +92,24 @@ namespace TaskService.Domain.Mappers
 
         public static People MapPeople(PeopleDto peopleDto)
         {
-            People people = new People()
+            People people = null;
+
+            if (peopleDto != null && peopleDto.Name != null)
             {
-                Biography = peopleDto.Biography,
-                Deathday = peopleDto.Deathday,
-                Birthday = peopleDto.Birthday,
-                Gender = peopleDto.Gender,
-                Name = peopleDto.Name,
-                PlaceOfBirth = peopleDto.PlaceOfBirth,
-                Popularity = peopleDto.Popularity, 
-                Imdb_id = peopleDto.Imdb_id, 
-                Homepage = peopleDto.Homepage
-            };
+                people = new People()
+                {
+                    Biography = peopleDto.Biography,
+                    Deathday = peopleDto.Deathday,
+                    Birthday = peopleDto.Birthday,
+                    Gender = peopleDto.Gender,
+                    Name = peopleDto.Name,
+                    PlaceOfBirth = peopleDto.PlaceOfBirth,
+                    Popularity = peopleDto.Popularity,
+                    Imdb_id = peopleDto.Imdb_id,
+                    Homepage = peopleDto.Homepage
+                };
+            }
+
             return people;
         }
 

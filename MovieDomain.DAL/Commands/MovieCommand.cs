@@ -1,14 +1,18 @@
-﻿using System;
+﻿using System.Data;
 using MovieDomain.DAL.ICommands;
 using MovieDomain.Entities;
 using MovieDomain.DAL.Abstract;
 using MovieDomain.DAL.Constans;
-using Dapper;
 
 namespace MovieDomain.DAL.Commands
 {
     internal class MovieCommand :  BaseCommand<Movie, int>, IMovieCommand
     {
+
+        //----------------------------------------------------------------//
+
+        public MovieCommand(IDbConnection connection) : base(connection) {}
+
         //----------------------------------------------------------------//
 
         public MovieCommand(ISession session)

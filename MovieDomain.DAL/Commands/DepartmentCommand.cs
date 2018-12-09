@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Data;
 using MovieDomain.Entities;
 using MovieDomain.DAL.Abstract;
 using MovieDomain.DAL.ICommands;
@@ -10,6 +10,12 @@ namespace MovieDomain.DAL.Commands
         public DepartmentCommand(ISession session) : base(session)
         {
         }
+
+        //----------------------------------------------------------------//
+
+        public DepartmentCommand(IDbConnection connection) : base(connection) {}
+
+        //----------------------------------------------------------------//
 
         protected override string GenerateInsertQuery(Department item)
         {

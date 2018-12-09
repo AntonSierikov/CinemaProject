@@ -1,12 +1,16 @@
 ﻿using MovieDomain.DAL.ICommands;
 using MovieDomain.Entities;
 using MovieDomain.DAL.Abstract;
-using Dapper;
+using System.Data;
 
 namespace MovieDomain.DAL.Commands
 {
     internal class CrewCommand : BaseCommand<Crew, int>, ICrewCommand
     {
+        //----------------------------------------------------------------//
+
+        public CrewCommand(IDbConnection connection) : base(connection) {}
+    
         //----------------------------------------------------------------//
 
         public CrewCommand(ISession session)
@@ -18,7 +22,7 @@ namespace MovieDomain.DAL.Commands
         protected override string GenerateInsertQuery(Crew entity)
         {
             return $@"INSERT INTO {TableName} OUTPUT Inserted.Id VALUES 
-                      (DEFAULT, @{nameof(entity.PeopleId)}, @{nameof(entity.MovieId)}, @{nameof(entity.JobId)}";
+                      (@{nameof(entity.PeopleId)}, @{nameof(entity.MovieId)}, @{nameof(entity.JobId)})";
         }
 
         //----------------------------------------------------------------//
@@ -29,7 +33,7 @@ namespace MovieDomain.DAL.Commands
                        PeopleId = @{nameof(entity.PeopleId)},
                        MovieId  = @{nameof(entity.MovieId)},
                        JobId = @{nameof(entity.JobId)}
-                       WHERE CrewId = @{nameof(entity.Id)}";
+                       WHERE Id = @{nameof(entity.Id)}";
         }
 
         //----------------------------------------------------------------//

@@ -13,7 +13,7 @@ namespace TaskService.Domain.Factories
 
         //----------------------------------------------------------------//
         
-        public static TaskBase CreateTask(TaskInfo info, IServiceProvider provider, ISession session)
+        public static TaskBase CreateTask(TaskInfo info, IServiceProvider provider)
         {
             TaskBase taskBase = null;
             CinemaServiceTask taskId = (CinemaServiceTask)Enum.ToObject(typeof(CinemaServiceTask), info.Id);

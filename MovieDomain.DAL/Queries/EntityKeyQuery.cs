@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using System.Data;
+using Dapper;
 using System.Threading.Tasks;
 using MovieDomain.Abstract;
 using MovieDomain.DAL.Abstract;
@@ -11,6 +12,11 @@ namespace MovieDomain.DAL.Queries
     {
 
         //----------------------------------------------------------------//
+
+        public EntityKeyQuery(IDbConnection connection) : base(connection)
+        {}
+
+        //----------------------------------------------------------------//
         public EntityKeyQuery(ISession session) : base(session)
         {
         }
@@ -20,7 +26,7 @@ namespace MovieDomain.DAL.Queries
         public async override Task<bool> IsExist(T item)
         {
             string isExist = $"SELECT COUNT(*) FROM {TableName} {GetUniqueConditionByItem(item)}";
-            return await _session.Connection.ExecuteScalarAsync<int>(isExist, item.Id, _session.Transaction, _session.Connection.ConnectionTimeout) > default(int);
+            return await _connection.ExecuteScalarAsync<int>(isExist, item.Id, _transaction, _connection.ConnectionTimeout) > default(int);
         }
 
         //----------------------------------------------------------------//

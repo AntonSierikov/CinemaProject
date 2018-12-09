@@ -119,10 +119,9 @@ namespace TaskService.Domain.Managers
             tasks.Add(SaveMovieGenresAsync(movie, await t_genres));
             tasks.Add(SaveMovieCompanies(movie, await t_companies));
             tasks.Add(SaveMovieCountriesAsync(movie, await t_countries));
-
+            
             //credits
             tasks.Add(SaveMovieCreditsByMovieAsync(movie));
-
             await Task.WhenAll(tasks);
         }
 
@@ -143,10 +142,13 @@ namespace TaskService.Domain.Managers
         {
             PeopleDto peopleDto = await _loadDataService.LoadPeople(peopleId);
             People people = CinemaDtoMapper.MapPeople(peopleDto);
-            DbCommandResult? result = await _peopleCommad.SaveOrUpdateAsync(_peopleQuery, people);
-            if (result.HasValue)
+            if(people != null)
             {
-                Logger.Log.Info($"People ({people.Id} - {people.Name}) was {result.ToString()}");
+                DbCommandResult? result = await _peopleCommad.SaveOrUpdateAsync(_peopleQuery, people);
+                if (result.HasValue)
+                {
+                    Logger.Log.Info($"People ({people.Id} - {people.Name}) was {result.ToString()}");
+                }
             }
             return people;
         }
@@ -254,9 +256,14 @@ namespace TaskService.Domain.Managers
             Cast cast = CinemaDtoMapper.MapCast(castDto);
             cast.Movie = movie;
             cast.MovieId = movie.Id;
-            People people = await SavePeopleAsync(castDto.PeopleId);
-            cast.People = people;
-            cast.PeopleId = people.Id;
+
+            if (castDto.PeopleId != null)
+            {
+                People people = await SavePeopleAsync(castDto.PeopleId);
+                cast.People = people;
+                cast.PeopleId = people?.Id;
+            }
+
             if(await _castCommand.SaveIfNotExist(_castQuery, cast))
             {
                 Logger.Log.Info($"Cast {cast.Id} was saved");

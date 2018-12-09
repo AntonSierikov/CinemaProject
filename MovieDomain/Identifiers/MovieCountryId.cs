@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using MovieDomain.Attributes.Database;
 
 namespace MovieDomain.Identifiers
 {
+    [ClusteredPrimaryKey]
     public class MovieCountryId
     {
 

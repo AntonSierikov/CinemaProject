@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Dapper;
+﻿using System.Data;
 using MovieDomain.DAL.ICommands;
 using MovieDomain.DAL.Abstract;
 using MovieDomain.Entities;
@@ -14,6 +11,10 @@ namespace MovieDomain.DAL.Commands
 
         //----------------------------------------------------------------//
 
+        public JobCommand(IDbConnection connection) : base(connection) {}
+
+        //----------------------------------------------------------------//
+
         public JobCommand(ISession session)
             : base(session)
         {}
@@ -22,7 +23,7 @@ namespace MovieDomain.DAL.Commands
 
         protected override string GenerateInsertQuery(Job entity)
         {
-           return $"INSERT INTO {TableName} VALUES (DEFAULT, @{nameof(entity.Department)}, @{nameof(entity.DepartmentId)})";
+           return $"INSERT INTO {TableName} OUTPUT INSERTED.Id VALUES (@{nameof(entity.job)}, @{nameof(entity.DepartmentId)})";
         }
 
         //----------------------------------------------------------------//
@@ -32,7 +33,7 @@ namespace MovieDomain.DAL.Commands
             return $@"UPDATE {TableName} SET
                       DepartmentId = @{nameof(entity.DepartmentId)},
                       job = @{nameof(entity.job)}
-                      WHERE id = @{nameof(entity.Id)}";
+                      WHERE Id = @{nameof(entity.Id)}";
         }
 
         //----------------------------------------------------------------//

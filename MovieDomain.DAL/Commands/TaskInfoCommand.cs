@@ -1,4 +1,5 @@
-﻿using MovieDomain.Entities;
+﻿using System.Data;
+using MovieDomain.Entities;
 using MovieDomain.DAL.Abstract;
 using MovieDomain.DAL.ICommands;
 using Dapper;
@@ -7,6 +8,10 @@ namespace MovieDomain.DAL.Commands
 {
     internal class TaskInfoCommand : BaseCommand<TaskInfo, int>, ITaskInfoCommand
     {
+
+        //----------------------------------------------------------------//
+
+        public TaskInfoCommand(IDbConnection connection) : base(connection) {}
 
         //----------------------------------------------------------------//
 

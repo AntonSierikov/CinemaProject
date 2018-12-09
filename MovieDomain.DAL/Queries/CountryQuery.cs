@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿using System.Data;
 using System.Threading.Tasks;
 using Dapper;
 using MovieDomain.Entities;
@@ -9,12 +9,15 @@ namespace MovieDomain.DAL.Queries
 {
     internal class CountryQuery : BaseQuery<ProductionCountry, int>, ICountryQuery
     {
+        //----------------------------------------------------------------//
+
+        public CountryQuery(IDbConnection connection) : base(connection)
+        {}
 
         //----------------------------------------------------------------//
 
         public CountryQuery(ISession session) : base(session)
-        {
-        }
+        {}
 
         //----------------------------------------------------------------//
 
@@ -28,7 +31,7 @@ namespace MovieDomain.DAL.Queries
         public Task<int> GetIdByItem(ProductionCountry item)
         {
             string getId = $"SELECT TOP 1 Id FROM {TableName} {GetUniqueConditionByItem(item)}";
-            return _session.Connection.QueryFirstOrDefaultAsync<int>(getId, item, _session.Transaction);
+            return _connection.QueryFirstOrDefaultAsync<int>(getId, item, _transaction);
         }
 
         //----------------------------------------------------------------//

@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace MovieDomain.Entities
 {
-    public partial class People : DbObject<int>
+    public class People : DbObject<int>
     {
         public People()
         {
