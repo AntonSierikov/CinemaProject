@@ -1,0 +1,212 @@
+html, button, input, select {
+    font-family: sans-serif;
+    color: #333;
+}
+html {
+    font-size: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+html, body {
+    height: 100%;
+}
+body.active-brand.pp {
+    padding-top: 250px !important;
+}
+body.active-brand {
+    background: #696969;
+    padding-top: 330px;
+}
+body {
+    background: #4169E1;
+    color: #000;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 11px;
+    font-weight: normal;
+    line-height: normal;
+    min-width: 980px;
+    -webkit-font-smoothing: antialiased;
+}
+html, body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-size: 1em;
+    line-height: 1.4;
+}
+html, body, div, span, h1, h2, img, i, ul, li, table, tbody, tfoot, thead, tr, th, td, footer, header, time, audio {
+    margin: 0;
+    padding: 0;
+        padding-top: 0px;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+body.active-brand #wrapper {
+    -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.4);
+    -moz-box-shadow: 0 0 10px rgba(0,0,0,0.4);
+    box-shadow: 0 0 10px rgba(0,0,0,0.4);
+    background-color: #fff !important;
+    position: relative;
+    margin: 0 auto;
+    width: 1000px;
+    z-index: 2;
+}
+body.has-brand #wrapper {
+    background-color: #FFFFFF !important;
+}
+#wrapper {
+    min-height: 100%;
+}
+body.active-brand.pp #top-nav-wrapper {
+    display: none;
+}
+body.active-brand #top-nav-wrapper {
+    display: none;
+}
+body.has-brand #top-nav-wrapper {
+    display: none;
+}
+body.active-brand .b-wrapper {
+    padding-right: 0;
+    padding-left: 0;
+}
+.b-wrapper {
+    margin: 0 auto;
+    padding: 0 10px;
+        padding-right: 10px;
+        padding-left: 10px;
+    width: 960px;
+}
+.b-post {
+    font-size: 14px;
+    line-height: 20px;
+}
+.b-content__columns.pdt {
+    padding-top: 38px;
+}
+.clearfix {
+    *zoom: 1;
+}
+.b-content__columns {
+    padding-right: 280px;
+}
+.b-content__main {
+    float: left;
+    width: 100%;
+}
+.b-post__title {
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 30px;
+}
+.b-post__origtitle {
+    color: #777;
+    font-size: 18px;
+    line-height: 18px;
+    margin-top: 10px;
+}
+.clearfix {
+    *zoom: 1;
+}
+.b-post__infotable {
+    margin: 20px 0 10px;
+    padding-left: 200px;
+}
+.b-post__infotable_left {
+    float: left;
+    margin-left: -200px;
+    width: 200px;
+}
+.b-sidecover {
+    -webkit-border-radius: 2px;
+    -khtml-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -o-border-radius: 2px;
+    border-radius: 2px;
+    background: #fff;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    min-height: 70px;
+    padding: 5px;
+    position: relative;
+}
+.b-sidelinks_holder {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 100%;
+}
+img {
+    border: 0;
+    -ms-interpolation-mode: bicubic;
+    vertical-align: middle;
+}
+.b-post__infotable_right {
+    float: left;
+    width: 100%;
+}
+.b-post__infotable_right_inner {
+    padding-left: 20px;
+}
+.b-post__info {
+    color: #444;
+    width: 100%;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+.b-post__info .l {
+    color: #000;
+    font-weight: bold;
+    width: 130px;
+}
+.b-post__info td {
+    padding: 2px 0;
+    vertical-align: top;
+    text-align: left;
+}
+td {
+    vertical-align: top;
+}
+.b-post__info h2 {
+    display: inline;
+}
+.persons-list-holder {
+    overflow: hidden;
+}
+.clearfix::after {
+    clear: both;
+}
+.clearfix::before, .clearfix::after {
+    content: "";
+    display: table;
+}
+.b-post__description_title {
+    color: #000;
+    font-size: 22px;
+    line-height: 22px;
+}
+.b-post__description_title h2 {
+    display: inline;
+    font-weight: normal;
+}
+.b-post__description_text {
+    font-size: 14px;
+    color: #444;
+    line-height: 22px;
+    padding-top: 5px;
+    padding-bottom: 15px;
+}
+.b-post__info .l.inline {
+    display: inline-block;
+}
+.persons-list-holder .inline {
+    display: inline-block;
+}
