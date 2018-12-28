@@ -23,10 +23,11 @@ namespace MovieDomain.DAL.Mappers
 
         //----------------------------------------------------------------//
 
-        public static Crew CrewQueryMap(Crew crew, Job job, People people)
+        public static Crew CrewQueryMap(Crew crew, Job job, Department department, People people)
         {
             InitPeople(crew, people);
             crew.Job = job;
+            crew.Job.Department = department;
             return crew;
         }
         

@@ -1,0 +1,24 @@
+.header-top{
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+    background-color: #4d636f;
+    top: 0px;
+    margin-bottom: 80px;
+}
+
+.header-top-item{
+    width: auto;
+    border: none;
+    outline: 0;
+    padding: 12px 24px;
+}
+
+.left{
+    float: left;
+}
+
+.right{
+    float: right;
+}
+

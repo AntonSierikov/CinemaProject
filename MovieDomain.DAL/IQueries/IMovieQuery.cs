@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Threading.Tasks;
 using MovieDomain.Entities;
 
 namespace MovieDomain.DAL.IQueries
@@ -11,6 +9,8 @@ namespace MovieDomain.DAL.IQueries
         //----------------------------------------------------------------//
 
         Movie GetMovie(string title);
+
+        Task<Movie> GetMovie(int movieId);
 
         //----------------------------------------------------------------//
 

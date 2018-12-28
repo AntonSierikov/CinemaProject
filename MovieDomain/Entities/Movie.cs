@@ -61,23 +61,23 @@ namespace MovieDomain.Entities
 
         public int VoteCount { get; set; }
 
-        public IList<Cast> Casts { get; set; }
+        public List<Cast> Casts { get; set; }
 
-        public IList<Crew> Crews { get; set; }
+        public List<Crew> Crews { get; set; }
 
-        public IList<Genre> Genres { get; set; }
+        public List<Genre> Genres { get; set; }
 
-        public IList<ProductionCountry> ProductionCountries { get; set; }
+        public List<ProductionCountry> ProductionCountries { get; set; }
 
-        public IList<ProductionCompany> ProductionCompanies { get; set; }
+        public List<ProductionCompany> ProductionCompanies { get; set; }
 
-        public IList<User> Liked { get; set; } 
+        public List<User> Liked { get; set; } 
 
-        public IList<User> WillWatch { get; set; }
+        public List<User> WillWatch { get; set; }
 
-        public IList<User> Appreciated { get; set; }
+        public List<User> Appreciated { get; set; }
 
-        public IList<Comment> Comments { get; set; }
+        public List<Comment> Comments { get; set; }
 
 
         //----------------------------------------------------------------//

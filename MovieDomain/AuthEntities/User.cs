@@ -1,15 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using MoviesDomain.Entities;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using MovieDomain.Entities;
+using MovieDomain.Abstract;
 
 namespace MovieDomain.AuthEntities
 {
-    public partial class User 
+    public class User : DbObject<int>
                                  
     {
 
@@ -38,36 +32,32 @@ namespace MovieDomain.AuthEntities
 
         public string ConnectionId { get; set; }
 
-        public int Id { get; set; }
+        public string FirstName { get; set; }
 
-        public string UserName { get; set; }
+        public string SecondName { get; set; }
 
         public bool IsOnline { get; set; }
 
-
-
-        [Required]
-        [StringLength(50)]
         public string UserPassword { get; set; }
 
         public DateTime AddedDate { get; set; }
 
         public DateTime? LastVisitDate { get; set; }
 
-        [StringLength(100)]
         public string Country { get; set; }
 
         public string Email { get; set; }
 
-        [StringLength(50)]
         public string City { get; set; }
+
+        public string Address { get; set; }
+
+        public int? RoleId { get; set; }
 
         public bool? Gender { get; set; }
 
-        [StringLength(50)]
-        public string Condition { get; set; }
+        public string UserStatus { get; set; }
 
-        [StringLength(125)]
         public string PathOfPhoto { get; set; }
 
         //----------------------------------------------------------------//

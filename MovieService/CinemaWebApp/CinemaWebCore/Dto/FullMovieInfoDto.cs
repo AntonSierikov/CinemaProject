@@ -19,9 +19,9 @@ namespace CinemaWebCore.Dto
 
         //----------------------------------------------------------------//
 
-        public List<string> Genres;
+        public List<GenreDto> Genres;
 
-        public List<string> Companies;
+        public List<CompanyDto> Companies;
 
         public List<CountryDto> Countries;
 

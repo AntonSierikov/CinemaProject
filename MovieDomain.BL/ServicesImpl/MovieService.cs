@@ -26,7 +26,7 @@ namespace MovieDomain.BL.ServicesImpl
             using (IDbConnection connection = OpenConnection())
             {
                 IMovieQuery query = queryFactory.CreateQuery<IMovieQuery>(connection);
-                movie = await query.GetItem(movieId);
+                movie = await query.GetMovie(movieId);
             }
 
             return movie;

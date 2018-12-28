@@ -39,6 +39,7 @@ namespace MovieDomain.DAL.Factories
             AddSessionOperation<IJobCommand>(s => new JobCommand(s));
             AddSessionOperation<IDepartmentCommand>(s => new DepartmentCommand(s));
             AddSessionOperation<ITaskInfoCommand>(s => new TaskInfoCommand(s));
+            AddSessionOperation<IUserCommand>(s => new UserCommand(s));
         }
 
         //----------------------------------------------------------------//
@@ -58,6 +59,7 @@ namespace MovieDomain.DAL.Factories
             AddConnectionOperation<IJobCommand>(c => new JobCommand(c));
             AddConnectionOperation<IDepartmentCommand>(c => new DepartmentCommand(c));
             AddConnectionOperation<ITaskInfoCommand>(c => new TaskInfoCommand(c));
+            AddConnectionOperation<IUserCommand>(c => new UserCommand(c));
         }
     }
 }

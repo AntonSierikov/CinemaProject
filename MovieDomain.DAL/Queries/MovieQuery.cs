@@ -26,7 +26,7 @@ namespace MovieDomain.DAL.Queries
 
         public Movie GetMovie(string title)
         {
-            string selectMovieByTitle = $"SELECT TOP 1 * FROM {TableConstans.MOVIE} WHERE Title = @title";
+            string selectMovieByTitle = $"SELECT TOP 1 * FROM {TableConstans.MOVIE} WHERE Title = @{nameof(title)}";
             return _connection.QueryFirstOrDefault<Movie>(selectMovieByTitle, new { title }, _transaction);
         }
 
@@ -55,5 +55,30 @@ namespace MovieDomain.DAL.Queries
 
         //----------------------------------------------------------------//
 
+        public async Task<Movie> GetMovie(int movieId)
+        {
+            Movie movie = await GetItem(movieId);
+            if(movie != null)
+            {
+                string subQuery = $@"SELECT g.* FROM Genre g JOIN MovieGenre mg 
+                                     ON g.Id = mg.GenreId WHERE mg.MovieId = @{nameof(movieId)};
+                                     SELECT c.* FROM ProductionCompany c JOIN MovieCompany mc 
+                                     ON c.Id = mc.CompanyId WHERE mc.MovieId = @{nameof(movieId)};
+                                     SELECT c.* FROM ProductionCountry c JOIN MovieCoutry mc
+                                     ON c.Id = mc.CountryId WHERE mc.MovieId = @{nameof(movieId)};";
+
+                using(SqlMapper.GridReader reader = await _connection.QueryMultipleAsync(subQuery, new { movieId }, _transaction))
+                {
+                    movie.Genres = reader.Read<Genre>().AsList();
+                    movie.ProductionCompanies = reader.Read<ProductionCompany>().AsList();
+                    movie.ProductionCountries = reader.Read<ProductionCountry>().AsList();
+                }
+            }
+
+            return movie;
+        }
+
+        //----------------------------------------------------------------//
+            
     }
 }

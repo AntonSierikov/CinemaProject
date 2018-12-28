@@ -47,7 +47,7 @@ namespace MovieDomain.DAL.Queries
                                 JOIN Department d ON d.Id = j.DepartmentId 
                                 JOIN People p ON p.Id = c.PeopleId
                                 WHERE c.MovieId = @{nameof(movieId)}";
-            return await _connection.QueryAsync<Crew, Job, People, Crew>(getCrew, CreditMapFunc.CrewQueryMap, 
+            return await _connection.QueryAsync<Crew, Job, Department, People, Crew>(getCrew, CreditMapFunc.CrewQueryMap, 
                                                                     new { movieId }, _transaction, splitOn: "Id, Id, Name");
         }
 
