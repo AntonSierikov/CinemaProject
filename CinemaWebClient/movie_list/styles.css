@@ -1,0 +1,428 @@
+html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video {
+ margin:0;
+ padding:0;
+ border:0;
+ outline:0;
+ font-size:100%;
+ vertical-align:baseline;
+ background:transparent
+}
+html {
+ font-size:100%;
+ -webkit-text-size-adjust:100%;
+ -ms-text-size-adjust:100%
+}
+html,button,input,select,textarea {
+ font-family:sans-serif;
+ color:#333
+}
+body {
+ position: relative
+ margin:0;
+ font-size:1em;
+ line-height:1.4
+}
+::-moz-selection {
+ background:#6bb9ef;
+ color:#fff;
+ text-shadow:none
+}
+::selection {
+ background:#6bb9ef;
+ color:#fff;
+ text-shadow:none
+}
+a {
+ color:#2e859e;
+ text-decoration:none
+}
+a:visited {
+ color:#2e859e
+}
+a:hover {
+ color:#2e859e;
+ text-decoration:underline
+}
+a:focus {
+ outline:none
+}
+a:hover,a:active {
+ outline:0
+}
+
+img {
+ border:0;
+ -ms-interpolation-mode:bicubic;
+ vertical-align:middle
+}
+
+table {
+ border-collapse:collapse;
+ border-spacing:0
+}
+td {
+ vertical-align:top
+}
+
+html,body {
+ height:100%
+}
+body {
+ background:#efefef;
+ color:#000;
+ font-family:Arial,Helvetica,sans-serif;
+ font-size:11px;
+ font-weight:normal;
+ line-height:normal;
+ min-width:980px;
+ -webkit-font-smoothing:antialiased
+}
+div.ps-body {
+ overflow-y:hidden
+}
+div.has-brand #wrapper {
+ background-color:#efefef !important
+}
+div.has-brand .b-tophead_wrapper {
+ position:relative
+}
+div.has-brand #top-nav-wrapper {
+ display:none
+}
+div.has-brand .b-topnav_wrapper {
+ position:relative;
+ top:0
+}
+
+div.active-brand {
+ background:#02050e;
+ padding-top:950px
+}
+
+div.active-brand.pp #top-head {
+ position:relative !important
+}
+div.active-brand.pp #top-nav-wrapper {
+ display:none
+}
+div.active-brand.pp #top-nav {
+ position:relative;
+ top:0
+}
+
+div.active-brand #wrapper {
+ -webkit-box-shadow:0 0 10px rgba(0,0,0,0.4);
+ -moz-box-shadow:0 0 10px rgba(0,0,0,0.4);
+ box-shadow:0 0 10px rgba(0,0,0,0.4);
+ background-color:#fff !important;
+ position:relative;
+ margin:0 auto;
+ width:1000px;
+ z-index:2
+}
+div.active-brand #top-nav-wrapper {
+ display:none
+}
+#wrapper {
+ min-height:100%
+}
+
+@media print {
+ * {
+  background:transparent !important;
+  color:black !important;
+  box-shadow:none !important;
+  text-shadow:none !important;
+  filter:none !important;
+  -ms-filter:none !important
+ }
+ a,a:visited {
+  text-decoration:underline
+ }
+ a[href]:after {
+  content:" (" attr(href) ")"
+ }
+ abbr[title]:after {
+  content:" (" attr(title) ")"
+ }
+
+ 
+ tr,img {
+  page-break-inside:avoid
+ }
+ img {
+  max-width:100% !important
+ }
+ @page {
+  margin:0.5cm
+ }
+ p,h2,h3 {
+  orphans:3;
+  widows:3
+ }
+ h2,h3 {
+  page-break-after:avoid
+ }
+}
+a, abbr, acronym, address, applet, article, aside, audio, b, blockquote, big, body, center, canvas, caption, cite, code, command, datalist, dd, del, details, dfn, dl, div, dt, em, embed, fieldset, figcaption, figure, font, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, keygen, label, legend, li, meter, nav, object, ol, output, p, pre, progress, q, s, samp, section, small, span, source, strike, strong, sub, sup, table, tbody, tfoot, thead, th, tr, tdvideo, tt, u, ul, var {
+    background: transparent;
+    border: 0 none;
+    font-size: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    vertical-align: top;
+}
+
+body {
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-size: 100%;
+    line-height: 1em;
+    color: #393939;
+}
+
+.shortpost {
+	
+    background: #f1f1f1;
+    border: 1px solid #e5e5e5;
+    display: -moz-inline-stack;
+    display: inline-block;
+    float: left;
+    margin: 0 10px 14px 0;
+    min-height: 250px;
+    padding: 2px;
+    vertical-align: top;
+    width: 240px;
+    zoom: 1;
+    *display: inline;
+    _height: 250px;
+}
+.listposts .postlastrow, .listposts .shortpost:nth-child(3n+3) {
+    margin-right: 0 !important;
+}
+
+}
+.shortpost .postcover {
+    position: relative;
+}
+a {
+    color: #d52d00;
+    outline: none;
+}
+.shortpost .posttitle {
+    height: 24px;
+    line-height: 12px;
+    padding: 5px 0;
+    text-align: center;
+}
+
+.shortpost .postdata {
+    font-size: 10px;
+    overflow: hidden;
+}	
+.navigation {
+    clear: both;
+    padding: 10px 0;
+    text-align: center;
+}
+.navigation span {
+    color: #232323;
+    display: inline-block;
+    height: 24px;
+    line-height: 24px;
+    padding: 0 2px;
+    text-decoration: none;
+}
+table, table td {
+    padding: 0;
+    border: none;
+    border-collapse: collapse;
+}
+
+	
+#header {
+    width: 1000px;
+	height: 125px;
+	background: #FFFFFF;
+	margin: -50px 0 0 -500px;
+	position: absolute; 
+    left: 50%;	
+	
+}	
+#slider {
+	
+    width: 1000px;
+	height: 480px;
+	background: #FFFFFF;
+	margin: 100px 0 0 -500px;
+	position: absolute; 
+    left: 50%;	
+	
+}
+#filter {
+	
+    width: 1000px;
+	height: 250px;
+	background: #FFFFFF;
+	margin: 690px 0 0 -500px;
+	position: absolute; 
+    left: 50%;	
+	
+}
+	
+.nav-container{ background: /*rgba(0,0,0,0.7); repeat-x 0 0*/ #696969;}
+.f-nav{ z-index: 9999; position: fixed; left: 0; top: 0; width: 100%;} /* а вот это прикрепит меню к верху */
+ 
+.nav { height: 42px;}
+ .nav ul { list-style: none; }
+ .nav ul li{float: left; margin-top: 6px; padding: 6px; border-right: 1px solid #ACACAC;}
+ .nav ul li:first-child{ padding-left: 0;}
+ .nav ul li a { color: #FFFFFF}
+ .nav ul li a:hover{ text-decoration: underline;}
+	
+----------------------
+body{
+background: #200122;
+background: -webkit-linear-gradient(to right, #6f0000, #200122);
+background: linear-gradient(to right, #6f0000, #200122);
+}
+
+/* style snippet */
+#thumbnail-preview-indicators {
+ position: relative;
+ overflow: hidden;
+}
+#thumbnail-preview-indicators .slides .slide-1, 
+#thumbnail-preview-indicators .slides .slide-2,
+#thumbnail-preview-indicators .slides .slide-3 {
+ background-size: cover;
+ background-position: center center;
+ background-repeat: no-repeat;
+}
+ #thumbnail-preview-indicators,
+ #thumbnail-preview-indicators .slides,
+ #thumbnail-preview-indicators .slides .slide-1, 
+ #thumbnail-preview-indicators .slides .slide-2,
+ #thumbnail-preview-indicators .slides .slide-3 {
+ height: 480px;
+ }
+#thumbnail-preview-indicators .slides .slide-1 {
+ background-image: url(33789850.jpg); 
+}
+#thumbnail-preview-indicators .slides .slide-2 {
+ background-image: url(33789850.jpg);
+}
+#thumbnail-preview-indicators .slides .slide-3 {
+ background-image: url(33789850.jpg);
+}
+#thumbnail-preview-indicators .carousel-inner .item .carousel-caption {
+ top: 20%;
+ bottom: inherit;
+}
+#thumbnail-preview-indicators .carousel-indicators li,
+#thumbnail-preview-indicators .carousel-indicators li.active {
+ position: relative;
+ width: 100px;
+ height: 8px; 
+}
+#thumbnail-preview-indicators .carousel-indicators li > .thumbnail {
+ position: absolute;
+ top: 0;
+ width: 100px;
+ display: none;
+ opacity: 0;
+ left: 50%;
+ margin-top: -80px;
+ margin-left: -50px;
+}
+#thumbnail-preview-indicators .carousel-indicators li:hover > .thumbnail,
+#thumbnail-preview-indicators .carousel-indicators li.active > .thumbnail {
+ display: block;
+ opacity: .8;
+}
+#thumbnail-preview-indicators .carousel-indicators li.active > .thumbnail:hover{
+ opacity: 1;
+}
+@media screen and (max-width : 480px) { 
+ #thumbnail-preview-indicators .carousel-indicators li,
+ #thumbnail-preview-indicators .carousel-indicators li.active {
+ width: 50px;
+ height: 8px;
+ position: relative;
+ }
+ #thumbnail-preview-indicators .carousel-indicators li > .thumbnail {
+ width: 50px;
+ left: 50%;
+ margin-top: -50px;
+ margin-left: -25px;
+ }
+}
+
+
+
+----------------
+#filter {
+z-index: 999999; }
+#filter ul	{
+	  list-style: none; /*убираем маркеры списка*/
+  margin: 0; /*убираем отступы*/
+  padding-left: 0; /*убираем отступы*/
+  margin-top:0px; /*делаем отступ сверху*/
+  background:#696969; /*добавляем фон всему меню*/
+  height: 50px; /*задаем высоту*/
+  z-index: 999999;
+}
+#filter a {
+  text-align: center;
+  text-decoration: none; /*убираем подчеркивание текста ссылок*/
+  background:#696969; /*добавляем фон к пункту меню*/
+  color:#FFFFFF; /*меняем цвет ссылок*/
+  padding:0px 15px; /*добавляем отступ*/
+  font-family: arial; /*меняем шрифт*/
+  line-height:50px; /*ровняем меню по вертикали*/
+  width: 200px;
+  display: block; 
+  border-right: 1px solid #DCDCDC; /*добавляем бордюр справа*/
+  -moz-transition: all 0.3s 0.01s ease; /*делаем плавный переход*/
+  -o-transition: all 0.3s 0.01s ease;
+-webkit-transition: all 0.3s 0.01s ease; }
+#filter a:hover {
+  background:#2F4F4F;/*добавляем эффект при наведении*/
+}
+#filter li {
+  float:left; /*Размещаем список горизонтально для реализации меню*/
+  position:relative; /*задаем позицию для позиционирования*/
+}
+#filter  li > ul {
+        position:absolute;
+        top:50px;
+        display:none;   
+    }
+#filter li:hover > ul {
+	
+        display:block; 
+        width:200px;  /*Задаем ширину выпадающего меню*/      
+    }
+#filter li:hover > ul > li {
+        float:none; /*Убираем горизонтальное позиционирование*/
+    }
+	
+.container-fluid {
+	    position:absolute;
+        top:60px;
+		width:1000px;
+		float:left;
+		margin-right: 20px;
+}
+label {
+	float:left;
+    top:25px; 
+	}
+.container-fluid_2 {
+	    position:absolute;
+        top:160px;
+		width:985px;
+		float:left;
+		margin-right: 20px;
+	
