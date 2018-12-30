@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ProfileComponent } from './profile/profile.component';
+import { MoviePageComponent } from './movie-page/components/movie.page.component';
 
 
 const routes: Routes = [
-  { path: '',  component : ProfileComponent } //loadChildren: './profile/profile.module#ProfileModule', }
+  { path: 'profile',  component : ProfileComponent },
+  { path: 'movie/:movieId',    component : MoviePageComponent } //loadChildren: './profile/profile.module#ProfileModule', }
 ];
 
 @NgModule({

@@ -10,6 +10,8 @@ namespace CinemaWebCore.Dto
 
         public string PeopleName { get; private set; }
 
+        public int Order { get; private set; }
+
         //----------------------------------------------------------------//
                 
         public CastDto(string character, string peopleName)
