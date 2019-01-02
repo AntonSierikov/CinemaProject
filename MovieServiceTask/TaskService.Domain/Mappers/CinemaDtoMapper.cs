@@ -83,7 +83,7 @@ namespace TaskService.Domain.Mappers
             {
                 CharacterCast = castDto.Character,
                 Gender = castDto.Gender,
-                Order = castDto.Order
+                Sequence = castDto.Order
             };
             return cast;
         }
@@ -106,7 +106,8 @@ namespace TaskService.Domain.Mappers
                     PlaceOfBirth = peopleDto.PlaceOfBirth,
                     Popularity = peopleDto.Popularity,
                     Imdb_id = peopleDto.Imdb_id,
-                    Homepage = peopleDto.Homepage
+                    Homepage = peopleDto.Homepage,
+                    ProfilePath = peopleDto.ProfilePath
                 };
             }
 

@@ -4,20 +4,20 @@ using System.Text;
 
 namespace CinemaWebCore.Dto
 {
-    public class CastDto
+    public class CastDto :  ShortPeopleDto
     {
         public string Character { get; private set; }
-
-        public string PeopleName { get; private set; }
 
         public int Order { get; private set; }
 
         //----------------------------------------------------------------//
                 
-        public CastDto(string character, string peopleName)
+        public CastDto(string character, string peopleName, int order,
+                       int _peopleId, string imgPath)
+            : base(_peopleId, peopleName, imgPath)
         {
             Character = character;
-            PeopleName = peopleName;
+            Order = order;
         }
 
         //----------------------------------------------------------------//

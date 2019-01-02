@@ -1,0 +1,23 @@
+<div class="b_slider">
+    <h3>{{sliderTitle}}</h3>
+      <div class="row slider-row">
+        <div class="col-md-12 heroSlider-fixed">
+          <div class="overlay"></div>
+           <!-- Slider -->
+          <div class="slider responsive {{sliderId}}">
+            <div *ngFor="let item of sliderItems">
+                <img src='{{item.ImageUrl}}' alt="" />
+                <p *ngIf="item.FirstTitle" class="s_first_title">{{item.FirstTitle}}</p>
+                <p *ngIf="item.SecondTitle"class="s_second_title">{{item.SecondTitle}}</p>
+            </div>
+          </div>
+                   <!-- control arrows -->
+                  <div class="prev prev-{{sliderId}}">
+                      <span class="fa fa-chevron-left"></span>
+                  </div>
+                  <div class="next next-{{sliderId}}">
+                      <span class="fa fa-chevron-right"></span>
+                  </div>          
+        </div>
+      </div>
+    </div>

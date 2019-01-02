@@ -27,5 +27,22 @@ namespace CinemaWebCore.Mappers
 
         //----------------------------------------------------------------//
 
+        public static ShortMovieInfoDto MovieToShortMovieInfo(Movie movie)
+        {
+            ShortMovieInfoDto shortMovieInfoDto = null;
+            if (movie != null)
+            {
+                shortMovieInfoDto = new ShortMovieInfoDto(movie.Title, movie.Budget, movie.Poster_path,
+                                                          movie.ReleaseDate, movie.Runtime, movie.Status, movie.Tagline);
+                shortMovieInfoDto.Companies = movie.ProductionCompanies.Select(c => new CompanyDto(c.Id, c.Name)).ToList();
+                shortMovieInfoDto.Countries = movie.ProductionCountries.Select(c => new CountryDto(c.Name, c.iso_3166_1)).ToList();
+                shortMovieInfoDto.Genres = movie.Genres.Select(g => new GenreDto(g.Id, g.genre)).ToList();
+            }
+
+            return shortMovieInfoDto;
+        }
+
+        //----------------------------------------------------------------//
+
     }
 }

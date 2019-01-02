@@ -1,0 +1,17 @@
+<div id="dle-content">
+    <div *ngFor="let item of shortMovieInfoModels" class="shortpost">
+        <div class="postcover">
+            <a href=""><img itemprop="image" src="https://image.tmdb.org/t/p/w500/{{item.title}}"  width="232" height="324">
+                <i title="" class="quality_type quality_hd"></i>
+            </a>
+        </div>
+        <div class="posttitle"><a href="">{{item.title}}</a> </div>
+        <div class="postdata">	
+            <div class="rinline">Producer: {{item.producer}}</div>
+            <div class="rinline">Casts: {{ item.casts | join_elements : '' : ', ' }} </div>
+            <div class="rinline">Year: {{item.year}}</div>
+            <div class="rinline">Countries: {{ item.countries | join_elements : '' : ', ' }} </div>
+            <div class="rinline">Рейтинги: Imdb<a href="">5</a>, RottenTomatoes<a href="">5</a></div>
+        </div>
+    </div>
+</div>

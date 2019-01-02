@@ -26,6 +26,7 @@ namespace TaskService.ConsoleClient
             Task<string> task = taskService.RunTasks().ContinueWith(c => c.GetExceptionLog());
             task.Wait();
             Console.WriteLine(task.Result);
+            Console.Read();
         }
 
         //----------------------------------------------------------------//

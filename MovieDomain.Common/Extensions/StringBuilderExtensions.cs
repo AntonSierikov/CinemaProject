@@ -56,5 +56,15 @@ namespace MovieDomain.Common.Extensions
 
         //----------------------------------------------------------------//
 
+        public static void AppendIfExist<T>(this StringBuilder builder, string text, T value)
+        {
+            if (value != null && !value.Equals(default(T)))
+            {
+                builder.Append(text);
+            }
+        }
+
+        //----------------------------------------------------------------//
+
     }
 }

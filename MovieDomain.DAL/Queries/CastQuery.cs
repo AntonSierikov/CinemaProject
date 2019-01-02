@@ -11,6 +11,7 @@ namespace MovieDomain.DAL.Queries
 {
     internal class CastQuery : BaseQuery<Cast, int>, ICastQuery
     {
+        private string _castsWithShortPeopleInfoQuery;
 
         //----------------------------------------------------------------//
 
@@ -34,20 +35,37 @@ namespace MovieDomain.DAL.Queries
             return _connection.QueryFirstOrDefaultAsync<int>(getId, item, _transaction);
         }
 
+        private string GetCastsWithShortPeopleInfoQuery
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_castsWithShortPeopleInfoQuery))
+                {
+                    _castsWithShortPeopleInfoQuery = $@"SELECT c.Id, c.MovieId, c.CharacterCast, c.Gender, c.Sequence,  p.Name, p.Imdb_id,  p.Popularity, p.ProfilePath
+                                                        FROM {TableName} c JOIN People p ON c.PeopleId = p.Id";
+                }
+                return _castsWithShortPeopleInfoQuery;
+            }
+        }
+
         //----------------------------------------------------------------//
 
         public async Task<IEnumerable<Cast>> GetCastsWithShortPeopleInfo(int movieId)
         {
-            string getCast = $@"SELECT c.CharacterCast,
-                                       c.Gender, 
-                                       c.Sequence,
-                                       p.Name,
-                                       p.Imdb_id,
-                                       p.Popularity
-                                FROM {TableName} c JOIN People p ON c.PeopleId = p.Id
+            string getCast = $@"{GetCastsWithShortPeopleInfoQuery}
                                 WHERE c.MovieId = @{nameof(movieId)}";
 
             return await _connection.QueryAsync<Cast, People, Cast>(getCast, CreditMapFunc.CastQueryMap, new { movieId }, _transaction, splitOn: "Name");
+        }
+
+        //----------------------------------------------------------------//
+
+        public async Task<IEnumerable<Cast>> GetCastsWithShortPeopleInfo(params int[] movieIds)
+        {
+            string getCast = $@"{GetCastsWithShortPeopleInfoQuery}
+                                WHERE c.MovieId IN @{nameof(movieIds)}";
+
+            return await _connection.QueryAsync<Cast, People, Cast>(getCast, CreditMapFunc.CastQueryMap, new { movieIds }, _transaction, splitOn: "Name");
         }
 
         //----------------------------------------------------------------//

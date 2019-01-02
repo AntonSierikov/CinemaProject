@@ -36,10 +36,17 @@ namespace TaskService.Domain.Tasks.PartialFeedTasks
         {
             List<int> movieIds = null;
 
-            while (movieIds?.Count != 0)
+            try
             {
-                await SaveTopMoviePage(++option.LastPage, connection);
-                Logger.Log.Info($"Page {option.LastPage} was loaded");
+                while (movieIds?.Count != 0)
+                {
+                    await SaveTopMoviePage(++option.LastPage, connection);
+                    Logger.Log.Info($"Page {option.LastPage} was loaded");
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
 

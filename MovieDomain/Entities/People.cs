@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using MovieDomain.AuthEntities;
 using MovieDomain.Abstract;
-using System.Linq.Expressions;
+using MovieDomain.ComparerFactories;
 
 namespace MovieDomain.Entities
 {
@@ -10,8 +10,8 @@ namespace MovieDomain.Entities
     {
         public People()
         {
-            Casts = new List<Cast>();
-            Crews = new List<Crew>();
+            Casts = new HashSet<Cast>(EqualityComparerFactory.BaseDbIntPKComparer);
+            Crews = new HashSet<Crew>(EqualityComparerFactory.BaseDbIntPKComparer);
         }
 
         public string Imdb_id { get; set; }
@@ -34,9 +34,9 @@ namespace MovieDomain.Entities
 
         public string ProfilePath { get; set; }
 
-        public IList<Cast> Casts { get; set; }
+        public HashSet<Cast> Casts { get; set; }
 
-        public IList<Crew> Crews { get; set; }
+        public HashSet<Crew> Crews { get; set; }
 
         public IList<User> UsersWhoLiked { get; set; }
 

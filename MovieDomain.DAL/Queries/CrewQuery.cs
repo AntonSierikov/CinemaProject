@@ -11,6 +11,7 @@ namespace MovieDomain.DAL.Queries
 {
     internal class CrewQuery : BaseQuery<Crew, int>, ICrewQuery
     {
+        private string _crewsWithShortPeopleInfoQuery;
 
         //----------------------------------------------------------------//
 
@@ -31,24 +32,48 @@ namespace MovieDomain.DAL.Queries
 
         //----------------------------------------------------------------//
 
-        public async Task<int> GetIdByItem(Crew item)
+        public Task<int> GetIdByItem(Crew item)
         {
             string getId = $@"SELECT Id FROM {TableName} {GetUniqueConditionByItem(item)}";
-            return await _connection.QueryFirstOrDefaultAsync<int>(getId, item, _transaction);
+            return _connection.QueryFirstOrDefaultAsync<int>(getId, item, _transaction);
         }
-        
+
         //----------------------------------------------------------------//
 
-        public async Task<IEnumerable<Crew>> GetCrewsWithShortPeopleInfo(int movieId)
+        private string GetCrewsWithShortPeopleInfoQuery
         {
-            string getCrew = $@"SELECT c.*, j.*, d.*, p.Name, p.Imdb_Id, p.Popularity
-                                FROM {TableName} c
-                                JOIN Job j ON c.JobId = j.Id 
-                                JOIN Department d ON d.Id = j.DepartmentId 
-                                JOIN People p ON p.Id = c.PeopleId
+            get
+            {
+                if (string.IsNullOrEmpty(_crewsWithShortPeopleInfoQuery))
+                {
+                    _crewsWithShortPeopleInfoQuery = $@"SELECT c.*, j.*, d.*, p.Name, p.Imdb_Id, p.Popularity, p.ProfilePath
+                                                        FROM {TableName} c
+                                                        JOIN Job j ON c.JobId = j.Id 
+                                                        JOIN Department d ON d.Id = j.DepartmentId 
+                                                        JOIN People p ON p.Id = c.PeopleId";
+                }
+                return _crewsWithShortPeopleInfoQuery;
+            }
+        }
+
+        //----------------------------------------------------------------//
+
+        public Task<IEnumerable<Crew>> GetCrewsWithShortPeopleInfo(int movieId)
+        {
+            string getCrew = $@"{GetCrewsWithShortPeopleInfoQuery}
                                 WHERE c.MovieId = @{nameof(movieId)}";
-            return await _connection.QueryAsync<Crew, Job, Department, People, Crew>(getCrew, CreditMapFunc.CrewQueryMap, 
+            return _connection.QueryAsync<Crew, Job, Department, People, Crew>(getCrew, CreditMapFunc.CrewQueryMap, 
                                                                     new { movieId }, _transaction, splitOn: "Id, Id, Name");
+        }
+
+        //----------------------------------------------------------------//
+
+        public Task<IEnumerable<Crew>> GetCrewsWithShortPeopleInfo(params int[] movieIds)
+        {
+            string getCrews = $@"{GetCrewsWithShortPeopleInfoQuery}
+                                 WHERE c.MovieId IN @{nameof(movieIds)}";
+            return _connection.QueryAsync<Crew, Job, Department, People, Crew>(getCrews, CreditMapFunc.CrewQueryMap,
+                                                                    new { movieIds }, _transaction, splitOn: "Id, Id, Name");
         }
 
         //----------------------------------------------------------------//

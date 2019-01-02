@@ -11,14 +11,14 @@ namespace CinemaWebCore.Dto
 
         public readonly string CountryName;
 
-        public readonly string ISO_3166_1;
+        public readonly string Iso_3166_1;
 
         //----------------------------------------------------------------//
 
         public CountryDto(string countryName, string iso_3166)
         {
             CountryName = countryName;
-            ISO_3166_1 = iso_3166;
+            Iso_3166_1 = iso_3166;
         }
 
         //----------------------------------------------------------------//

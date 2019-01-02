@@ -1,7 +1,6 @@
 
 
-export class CastModel{
-    Character: string;
-    PeopleName: string;
-    Order: number;
+export class CastModel extends ShortPeopleModel{
+    character: string;
+    order: number;
 }

@@ -1,20 +1,17 @@
-using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq.Expressions;
 using MovieDomain.Abstract;
+using MovieDomain.EqualityComparers;
 
 namespace MovieDomain.Entities
 {
-    public partial class Department : DbObject<int>
+    public class Department : DbObject<int>
     {
 
         //----------------------------------------------------------------//
         
         public Department()
         {
-            Jobs = new HashSet<Job>();
+            Jobs = new HashSet<Job>(new BaseDbEqualityComparer<int>());
         }
 
         //----------------------------------------------------------------//
@@ -29,7 +26,7 @@ namespace MovieDomain.Entities
 
         public string DepartmentName { get; set; }
 
-        public ICollection<Job> Jobs { get; set; }
+        public HashSet<Job> Jobs { get; set; }
 
         //----------------------------------------------------------------//
 

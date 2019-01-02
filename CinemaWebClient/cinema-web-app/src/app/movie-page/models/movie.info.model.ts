@@ -2,7 +2,7 @@ class MovieInfoModel{
     title: string;
     budget: string;
     overview: string;
-    poster_path: string;
+    poster_Path: string;
     releaseDate: Date;
     runtime: number;
     status: number;

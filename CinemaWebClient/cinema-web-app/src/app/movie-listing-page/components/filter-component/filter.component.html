@@ -1,0 +1,57 @@
+<div id="filter" >
+
+        <div class="col-md-2">
+            <div class="btn-group">
+                <button type="button" class="btn btn-{{getFilterClass()}} dropdown-toggle" 
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ selectedFilter.genre || 'Genre' }}
+                </button>
+                <div class="dropdown-menu">
+                    <a *ngFor="let item of filterValues.genres" class="dropdown-item" href="#">Action</a>
+                </div>
+            </div> 
+        </div>
+        <div class="col-md-2">
+                <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle"
+                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                         {{selectedFilter.country || 'Country'}}
+                        </button>
+                        <div class="row-fluid" style="width: 400px;">
+                                <ul *ngFor="let group of filterValues.groupedCountries" class="unstyled span4">
+                                    <li *ngFor='let country of group'>{{country.countryName}}</li>
+                                </ul>
+                        </div>
+                </div>
+        </div> 
+
+        <div class="col-md-2">
+
+        </div>
+
+	    <div class="container-fluid">
+	        <div class="col-md-12">
+                <form class="form-horizontal">
+	                <div class="form-group row">
+                        <label for="range_04" class="col-sm-2 control-label"><b>Год Выхода:</b></label>
+                        <div class="col-sm-10">
+                            <input type="text" id="range_04">
+                        </div>
+			        </div>
+			    </form>
+	        </div>
+        </div> 
+        
+		<div class="container-fluid_2">
+	        <div class="col-md-12">
+                <form class="form-horizontal">
+	                <div class="form-group row">
+                        <label for="range_05" class="col-sm-2 control-label"><b>Бюджет, млн:</b></label>
+                        <div class="col-sm-10">
+                            <input type="text" id="range_05">
+                        </div>
+			        </div>
+			    </form>
+	        </div>
+	    </div>
+	</div>

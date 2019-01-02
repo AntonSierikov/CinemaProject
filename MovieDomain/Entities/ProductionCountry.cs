@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.ComponentModel.DataAnnotations;
 using MovieDomain.Abstract;
+using MovieDomain.ComparerFactories;
 
 namespace MovieDomain.Entities
 {
@@ -10,7 +8,7 @@ namespace MovieDomain.Entities
     {
         public ProductionCountry()
         {
-            Movies = new List<MovieCountry>();
+            Movies = new HashSet<Movie>(EqualityComparerFactory.BaseDbIntPKComparer);
         }
 
         //----------------------------------------------------------------//
@@ -19,10 +17,8 @@ namespace MovieDomain.Entities
 
         public string Name { get; set; }
 
-        public IList<MovieCountry> Movies { get; set; }
+        public HashSet<Movie> Movies { get; set; }
 
         //----------------------------------------------------------------//
-
-
     }
 }

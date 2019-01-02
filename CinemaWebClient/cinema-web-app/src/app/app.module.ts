@@ -6,6 +6,8 @@ import { AppComponent,  } from './app.component';
 import { HeaderComponent } from './header/app.header.component';
 import { MoviePageModule } from './movie-page/movie.page.module';
 import { ProfileModule } from './profile/profile.module';
+import { HttpClientModule } from '@angular/common/http';
+import { MovieListingPageModule } from './movie-listing-page/movie.listing.page.module';
 
 
 @NgModule({
@@ -14,10 +16,12 @@ import { ProfileModule } from './profile/profile.module';
     HeaderComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     MoviePageModule,
-    ProfileModule
+    ProfileModule,
+    MovieListingPageModule
   ],
   providers: [],
   bootstrap: [AppComponent, HeaderComponent]

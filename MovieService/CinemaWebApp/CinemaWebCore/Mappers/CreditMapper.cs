@@ -14,8 +14,8 @@ namespace CinemaWebCore.Mappers
 
         public static CreditsDto MapToCreditsDto(IEnumerable<Cast> casts, IEnumerable<Crew> crews)
         {
-            List<CastDto> castsDto = casts.Select(c => new CastDto(c.CharacterCast, c.People.Name)).ToList();
-            List<CrewDto> crewsDto = crews.Select(c => new CrewDto(c.Job.job, c.Job.Department?.DepartmentName, c.People.Name)).ToList();
+            List<CastDto> castsDto = casts.Select(c => new CastDto(c.CharacterCast, c.People.Name, c.Sequence.GetValueOrDefault(), c.People.Id, c.People.ProfilePath)).ToList();
+            List<CrewDto> crewsDto = crews.Select(c => new CrewDto(c.Job.job, c.Job.Department?.DepartmentName, c.People.Id, c.People.Name, c.People.ProfilePath)).ToList();
             return new CreditsDto(castsDto, crewsDto);
         }
 

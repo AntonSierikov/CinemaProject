@@ -1,0 +1,39 @@
+
+.shortpost {
+	
+    background: #f1f1f1;
+    border: 1px solid #e5e5e5;
+    display: -moz-inline-stack;
+    display: inline-block;
+    float: left;
+    margin: 0 10px 14px 0;
+    min-height: 250px;
+    padding: 2px;
+    vertical-align: top;
+    width: 240px;
+    zoom: 1;
+    *display: inline;
+    _height: 250px;
+}
+.listposts .postlastrow, .listposts .shortpost:nth-child(3n+3) {
+    margin-right: 0 !important;
+}
+
+.shortpost .postcover {
+    position: relative;
+}
+a {
+    color: #d52d00;
+    outline: none;
+}
+.shortpost .posttitle {
+    height: 24px;
+    line-height: 12px;
+    padding: 5px 0;
+    text-align: center;
+}
+
+.shortpost .postdata {
+    font-size: 10px;
+    overflow: hidden;
+}

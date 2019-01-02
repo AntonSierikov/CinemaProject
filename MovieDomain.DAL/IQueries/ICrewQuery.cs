@@ -8,5 +8,6 @@ namespace MovieDomain.DAL.IQueries
     public interface ICrewQuery : IQuery<Crew, int>
     {
         Task<IEnumerable<Crew>> GetCrewsWithShortPeopleInfo(int movieId);
+        Task<IEnumerable<Crew>> GetCrewsWithShortPeopleInfo(params int[] movieIds);
     }
 }

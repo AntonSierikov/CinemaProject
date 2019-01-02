@@ -1,12 +1,13 @@
-﻿using System;
+﻿using System.Linq;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using CinemaWebCore.Dto;
+using CinemaWebCore.PageDto;
 using CinemaWebCore.Mappers;
+using CinemaWebApi.ParamDto;
 using MovieDomain.BL.ServicesInterface;
+using MovieDomain.BL.Model.BLFilters;
 
 namespace CinemaWebApi.Controllers
 {
@@ -36,6 +37,19 @@ namespace CinemaWebApi.Controllers
             }
 
             return NotFound();
+        }
+
+        //----------------------------------------------------------------//
+
+        [HttpGet]
+        [Route("MovieList")]
+        public async Task<ActionResult<List<ShortMovieInfoDto>>> MovieList([FromQuery]MovieListFilterDto filter)
+        {
+            BLMovieListFilter blFIlter = new BLMovieListFilter(filter.Genre, filter.Company, filter.Country, filter.Year, filter.PageNumber);
+            var data = await _movieService.GetListingPageMainData(blFIlter);
+            List<ShortMovieInfoDto> l_shortMoveiInfo = data.Item1.Select(MovieMapper.MovieToShortMovieInfo).ToList();
+            FiltersDto l_filters = FilterMapper.FiltersToDto(data.Item2); 
+            return Ok(new ListingPageDto(l_shortMoveiInfo, l_filters));
         }
 
         //----------------------------------------------------------------//

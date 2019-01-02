@@ -30,14 +30,14 @@ namespace MovieDomain.BL.ServicesImpl
 
         //----------------------------------------------------------------//
 
-        private async Task<IEnumerable<Cast>> GetCastsByMovieId(IDbConnection connection, int movieId)
+        public  async Task<IEnumerable<Cast>> GetCastsByMovieId(IDbConnection connection, int movieId)
         {
             return await queryFactory.CreateQuery<ICastQuery>(connection).GetCastsWithShortPeopleInfo(movieId);
         }
 
         //----------------------------------------------------------------//
 
-        private async Task<IEnumerable<Crew>> GetCrewsByMovieId(IDbConnection connection, int movieId)
+        public async Task<IEnumerable<Crew>> GetCrewsByMovieId(IDbConnection connection, int movieId)
         {
             return await queryFactory.CreateQuery<ICrewQuery>(connection).GetCrewsWithShortPeopleInfo(movieId);
         }
