@@ -260,12 +260,23 @@ table, table td {
     left: 50%;	
 	
 }
-#filter {
+#dropdown {
 	
     width: 1000px;
-	height: 250px;
+	height: 50px;
 	background: #FFFFFF;
 	margin: 690px 0 0 -500px;
+	position: absolute; 
+    left: 50%;	
+	
+}
+
+#filter{
+	
+    width: 1000px;
+	height: 200px;
+	background: #FFFFFF;
+	margin: 740px 0 0 -500px;
 	position: absolute; 
     left: 50%;	
 	
@@ -362,67 +373,58 @@ background: linear-gradient(to right, #6f0000, #200122);
 
 
 ----------------
-#filter {
+#dropdown {	
+
 z-index: 999999; }
-#filter ul	{
-	  list-style: none; /*убираем маркеры списка*/
-  margin: 0; /*убираем отступы*/
-  padding-left: 0; /*убираем отступы*/
-  margin-top:0px; /*делаем отступ сверху*/
-  background:#696969; /*добавляем фон всему меню*/
-  height: 50px; /*задаем высоту*/
-  z-index: 999999;
-}
-#filter a {
-  text-align: center;
-  text-decoration: none; /*убираем подчеркивание текста ссылок*/
-  background:#696969; /*добавляем фон к пункту меню*/
-  color:#FFFFFF; /*меняем цвет ссылок*/
-  padding:0px 15px; /*добавляем отступ*/
-  font-family: arial; /*меняем шрифт*/
-  line-height:50px; /*ровняем меню по вертикали*/
-  width: 200px;
-  display: block; 
-  border-right: 1px solid #DCDCDC; /*добавляем бордюр справа*/
-  -moz-transition: all 0.3s 0.01s ease; /*делаем плавный переход*/
-  -o-transition: all 0.3s 0.01s ease;
--webkit-transition: all 0.3s 0.01s ease; }
-#filter a:hover {
-  background:#2F4F4F;/*добавляем эффект при наведении*/
-}
-#filter li {
-  float:left; /*Размещаем список горизонтально для реализации меню*/
-  position:relative; /*задаем позицию для позиционирования*/
-}
-#filter  li > ul {
-        position:absolute;
-        top:50px;
-        display:none;   
-    }
-#filter li:hover > ul {
-	
-        display:block; 
-        width:200px;  /*Задаем ширину выпадающего меню*/      
-    }
-#filter li:hover > ul > li {
-        float:none; /*Убираем горизонтальное позиционирование*/
-    }
+
+
 	
 .container-fluid {
 	    position:absolute;
-        top:60px;
+        top:20px;
 		width:1000px;
 		float:left;
 		margin-right: 20px;
+		text-align: left;
 }
 label {
 	float:left;
-    top:25px; 
+    top:25px;
+    text-align: left;	
 	}
 .container-fluid_2 {
 	    position:absolute;
-        top:160px;
+        top:120px;
 		width:985px;
 		float:left;
 		margin-right: 20px;
-	
+		text-align: left;
+}
+.dropdown-menu {
+ width: 100%;
+ }
+
+ .scrollable-menu {
+ height: auto;
+ max-height: 144px;
+ overflow-x: hidden;
+ }
+ 
+ 
+.dropdown-menu {
+ width: 100%;
+ }
+
+ .scrollable-menu {
+ height: auto;
+ max-height: 210px;
+ overflow-x: hidden;
+ }
+ 
+ .btn-group {
+	 position:absolute;
+        top:15px;
+		
+	 
+ }
+ 

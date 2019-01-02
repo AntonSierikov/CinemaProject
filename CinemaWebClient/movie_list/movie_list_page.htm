@@ -10,11 +10,13 @@
 <link rel="stylesheet" href="http://bootstraptema.ru/plugins/2018/irs/ion.rangeSlider.css" />
 <link rel="stylesheet" href="http://bootstraptema.ru/plugins/2018/irs/ion.rangeSlider.skin.css" />
 <script src="http://bootstraptema.ru/plugins/2018/irs/ion.rangeSlider.min.js"></script>
+<script type="text/javascript" src="http://bootstraptema.ru/plugins/2015/b-v3-3-6/bootstrap.min.js"></script>
 <title>Страница списка</title>
 <meta charset="utf-8" />
 </head>
 <body>
     <script src="js/jquery-1.10.2.min.js"></script>
+	
     <script>
 	jQuery("document").ready(function($){
      
@@ -43,7 +45,7 @@
 				<li><a href="">крыса</a></li>	
             </ul>
 			</div>
-        </div>
+        </div> 
     
     <div id="slider">
 	    <div id="thumbnail-preview-indicators" class="carousel slide" data-ride="carousel">
@@ -101,51 +103,73 @@
             <a class="right carousel-control" href="#thumbnail-preview-indicators" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
         </div>
 	</div>
-	<div id="filter" >
-	    <ul>
-        <li><a href="#">Жанры</a>
-            <ul>
-                <li><a href="#">Жанр</a></li>
-                <li><a href="#">Жанр2</a></li>
-                <li><a href="#">Жанр3</a></li>
-				<li><a href="#">Жанр4</a></li>
-				<li><a href="#">Жанр5</a></li>
-				<li><a href="#">Жанр6</a></li>
-				<li><a href="#">Жанр7</a></li>
-				<li><a href="#">Жанр8</a></li>
-				<li><a href="#">Жанр8</a></li>
-				<li><a href="#">Жанр8</a></li>
-				<li><a href="#">Жанр8</a></li>
-				<li><a href="#">Жанр8</a></li>
-				<li><a href="#">Жанр8</a></li>
-				<li><a href="#">Жанр8</a></li>
-            </ul>
-        </li>  
-        <li><a href="#">Страна</a>
-            <ul>
-                <li><a href="#">Страна1</a></li>
-                <li><a href="#">Страна1</a></li>
-                <li><a href="#">Страна1</a></li>
-				<li><a href="#">Страна1</a></li>
-				<li><a href="#">Страна1</a></li>
-				<li><a href="#">Страна1</a></li>
-				<li><a href="#">Страна1</a></li>
-            </ul>
-        </li>  
-        </li>  
-        <li><a href="#">Возрастной рейтинг</a>
-            <ul>
-                <li><a href="#">1+</a></li>
-                <li><a href="#">2+</a></li>
-                <li><a href="#">3+</a></li>
-				<li><a href="#">4+</a></li>
-				<li><a href="#">5+</a></li>
-				<li><a href="#">6+</a></li>
-				<li><a href="#">7+</a></li>
-            </ul>
-        </li> 
+	<div id="dropdown">
+	    <div class="container"><div  class="pull-left">
+            <div class="btn-group" >
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" >Жанры: <span class="caret" ></span></button>
+                    <ul class="dropdown-menu scrollable-menu" role="menu">
+                       <li><a href="#">Пункт 1</a></li>
+                       <li><a href="#">Пункт 2</a></li>
+                       <li><a href="#">Пункт 3</a></li>
+                       <li><a href="#">Пункт 4</a></li>
+                       <li><a href="#">Пункт 5</a></li>
+                       <li><a href="#">Пункт 6</a></li>
+                       <li><a href="#">Пункт 7</a></li>
+                       <li><a href="#">Пункт 8</a></li>
+                       <li><a href="#">Пункт 9</a></li>
+                       <li><a href="#">Пункт 10</a></li>
+                       <li><a href="#">Пункт 11</a></li>
+                       <li><a href="#">Пункт 12</a></li>
+                       <li><a href="#">Пункт 13</a></li>
+                       <li><a href="#">Пункт 14</a></li>
+                    </ul>
+            </div>
+            <div class="btn-group" >
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" >Страна: <span class="caret" ></span></button>
+                    <ul class="dropdown-menu scrollable-menu" role="menu">
+                        <li><a href="#">Пункт 1</a></li>
+                        <li><a href="#">Пункт 2</a></li>
+                        <li><a href="#">Пункт 3</a></li>
+                        <li><a href="#">Пункт 4</a></li>
+                        <li><a href="#">Пункт 5</a></li>
+                        <li><a href="#">Пункт 6</a></li>
+                        <li><a href="#">Пункт 7</a></li>
+                        <li><a href="#">Пункт 8</a></li>
+                        <li><a href="#">Пункт 9</a></li>
+                        <li><a href="#">Пункт 10</a></li>
+                        <li><a href="#">Пункт 11</a></li>
+                        <li><a href="#">Пункт 12</a></li>
+                        <li><a href="#">Пункт 13</a></li>
+                        <li><a href="#">Пункт 14</a></li>
+                    </ul>
+   
+            </div>
+            <div class="btn-group" >
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" >Возрастные ограничения: <span class="caret" ></span></button>
+                    <ul class="dropdown-menu scrollable-menu" role="menu">
+                        <li><a href="#">Пункт 1</a></li>
+                        <li><a href="#">Пункт 2</a></li>
+                        <li><a href="#">Пункт 3</a></li>
+                        <li><a href="#">Пункт 4</a></li>
+                        <li><a href="#">Пункт 5</a></li>
+                        <li><a href="#">Пункт 6</a></li>
+                        <li><a href="#">Пункт 7</a></li>
+                        <li><a href="#">Пункт 8</a></li>
+                        <li><a href="#">Пункт 9</a></li>
+                        <li><a href="#">Пункт 10</a></li>
+                        <li><a href="#">Пункт 11</a></li>
+                        <li><a href="#">Пункт 12</a></li>
+                        <li><a href="#">Пункт 13</a></li>
+                        <li><a href="#">Пункт 14</a></li>
+                    </ul>
  
-        </ul>
+              </div>
+        </div>
+				
+		</div>
+
+    </div> 		
+	<div id="filter">
 	    <div class="container-fluid">
 	        <div class="col-md-12">
                 <form class="form-horizontal">
